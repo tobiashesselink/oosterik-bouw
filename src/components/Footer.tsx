@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const footerLinks = [
@@ -22,22 +22,6 @@ const dienstenLinks = [
 export default function Footer() {
   return (
     <footer className="bg-dark">
-      {/* CTA bar */}
-      <div className="border-b border-white/5">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 sm:flex-row">
-          <div>
-            <h3 className="font-display text-lg font-semibold text-white">Klaar om te beginnen?</h3>
-            <p className="text-sm text-gray-400">Vraag een vrijblijvende offerte aan.</p>
-          </div>
-          <Link
-            to="/contact"
-            className="flex items-center gap-2 rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-light hover:shadow-lg hover:shadow-brand/20">
-            Neem contact op
-            <ArrowUpRight size={16} />
-          </Link>
-        </div>
-      </div>
-
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           {/* Logo + description */}

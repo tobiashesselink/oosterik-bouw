@@ -15,6 +15,21 @@
   --font-display: "Barlow Semi Condensed", sans-serif;
 }
 
+/* Project slider */
+.project-slider .swiper-slide {
+  width: 320px;
+  position: relative;
+  z-index: 1;
+}
+
+.project-slider .swiper-slide-active {
+  z-index: 10;
+}
+
+.project-slider [data-slide-content] {
+  opacity: 0;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
