@@ -153,7 +153,6 @@ export default function ProjectenSliderSection() {
         <ScrollReveal>
           <div className="flex items-end justify-between">
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand">Recente projecten</p>
               <h2 className="font-display text-5xl font-bold tracking-tight text-dark sm:text-6xl">Onze projecten</h2>
             </div>
             <div className="hidden gap-3 sm:flex">
@@ -221,9 +220,7 @@ export default function ProjectenSliderSection() {
                       <h3 className="font-display text-4xl font-bold leading-tight text-white sm:text-5xl">
                         {project.title}
                       </h3>
-                      <p className="mt-3 text-base leading-relaxed text-gray-200 line-clamp-2">
-                        {project.description}
-                      </p>
+                      <p className="mt-3 text-base leading-relaxed text-gray-200 line-clamp-2">{project.description}</p>
                       <span className="mt-5 inline-flex items-center gap-2 text-base font-semibold text-brand">
                         Bekijk project
                         <ArrowRight size={16} />

@@ -1,136 +1,101 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Bath, Building, Home, RefreshCw, Sun, Warehouse } from "lucide-react";
 import { Link } from "react-router-dom";
-import ScrollReveal from "./ScrollReveal";
 import CTAButton from "./CTAButton";
+import ScrollReveal from "./ScrollReveal";
 
 const diensten = [
   {
     title: "Aanbouw & uitbouw",
     description: "Meer leefruimte zonder te verhuizen",
-    image: "/uitbouw.webp",
+    icon: Home,
   },
   {
-    title: "Interne verbouwing",
-    description: "Een andere indeling of complete renovatie",
-    image: "/actie-foto-1.webp",
+    title: "Renovatie & verbouwing",
+    description: "Van gevel tot interieur, van indeling tot complete renovatie",
+    icon: RefreshCw,
   },
   {
     title: "Bijgebouwen & tuinhuizen",
     description: "Maatwerk dat past bij jouw woning",
-    image: "/tuinhuis-kempers-1.webp",
+    icon: Warehouse,
   },
   {
     title: "Dakkapel & dakrenovatie",
     description: "Extra hoogte, licht en leefruimte",
-    image: "/uitbouw e'de.webp",
+    icon: Building,
   },
   {
     title: "Badkamer & toilet",
     description: "Volledige renovatie van A tot Z",
-    image: "/Tegelssnijden.webp",
+    icon: Bath,
   },
   {
     title: "Verduurzaming",
     description: "Isolatie, kozijnen en energiebesparing",
-    image: "/Constuctie douglas.webp",
-  },
-  {
-    title: "Renovatie & onderhoud",
-    description: "Van gevel tot interieur weer als nieuw",
-    image: "/actie-foto-6.webp",
+    icon: Sun,
   },
 ];
 
 export default function DienstenSection() {
   return (
-    <section className="bg-white py-28">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Header */}
-        <div className="grid items-end gap-8 lg:grid-cols-2">
-          <ScrollReveal>
-            <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand">
-                Onze diensten
-              </p>
-              <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
-                Wat kunnen we bouwen?
-              </h2>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={100}>
-            <p className="max-w-lg text-dark-lighter lg:ml-auto lg:text-right">
-              Van een complete aanbouw tot verduurzaming — wij regelen het van A
-              tot Z, met één vast aanspreekpunt.
-            </p>
-          </ScrollReveal>
-        </div>
+    <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+      <div className="overflow-hidden rounded-3xl bg-[#f3f3f3] sm:rounded-[2rem]">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+          {/* Header */}
+          <div className="mb-16">
+            <ScrollReveal>
+              <div>
+                <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
+                  Onze <span className="text-brand">diensten</span>
+                </h2>
+              </div>
+            </ScrollReveal>
+          </div>
 
-        {/* Featured — first two large */}
-        <div className="mt-16 grid gap-4 md:grid-cols-2">
-          {diensten.slice(0, 2).map((dienst, i) => (
-            <ScrollReveal key={dienst.title} delay={i * 100}>
-              <Link
-                to="/diensten"
-                className="group relative block overflow-hidden rounded-2xl"
-              >
-                <img
-                  src={dienst.image}
-                  alt={dienst.title}
-                  className="h-[360px] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-300 group-hover:from-black/90" />
-                <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between p-7">
-                  <div>
-                    <h3 className="font-display text-3xl font-bold text-white sm:text-4xl">
+          {/* Services Grid - 2x3 layout */}
+          <div className="mt-16 grid h-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {diensten.map((dienst, i) => {
+              const Icon = dienst.icon;
+              const isEven = i % 2 === 0;
+              return (
+                <ScrollReveal key={dienst.title} delay={i * 80}>
+                  <Link
+                    to="/diensten"
+                    className={`group relative block h-full p-10 transition-all duration-500 hover:bg-[#2c2c26] ${
+                      isEven ? "bg-white rounded-[0_3rem_0_3rem]" : "bg-white rounded-[3rem_0_3rem_0]"
+                    }`}>
+                    {/* Icon Container */}
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#e5782c] text-white transition-all duration-300 group-hover:bg-white group-hover:text-[#2c2c26]">
+                      <Icon size={28} strokeWidth={1.5} />
+                    </div>
+
+                    {/* Content */}
+                    <h3 className="mb-3 font-display text-2xl font-bold text-[#2c2c26] transition-colors duration-300 group-hover:text-white">
                       {dienst.title}
                     </h3>
-                  </div>
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm transition-all duration-300 group-hover:bg-brand group-hover:text-white">
-                    <ArrowRight size={18} />
-                  </span>
-                </div>
-              </Link>
-            </ScrollReveal>
-          ))}
-        </div>
+                    <p className="text-[#6b6b5f] transition-colors duration-300 group-hover:text-white/70">
+                      {dienst.description}
+                    </p>
 
-        {/* Remaining services — compact list */}
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {diensten.slice(2).map((dienst, i) => (
-            <ScrollReveal key={dienst.title} delay={i * 80}>
-              <Link
-                to="/diensten"
-                className="group relative block overflow-hidden rounded-2xl"
-              >
-                <img
-                  src={dienst.image}
-                  alt={dienst.title}
-                  className="h-[220px] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-300 group-hover:from-black/90" />
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <h3 className="font-display text-xl font-bold leading-tight text-white">
-                    {dienst.title}
-                  </h3>
-                </div>
-                <span className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:bg-brand">
-                  <ArrowRight size={14} />
-                </span>
-              </Link>
-            </ScrollReveal>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <ScrollReveal>
-          <div className="mt-14 text-center">
-            <CTAButton to="/diensten" variant="secondary">
-              Alle diensten bekijken
-            </CTAButton>
+                    {/* Arrow */}
+                    <span className="absolute bottom-8 right-8 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10 text-[#2c2c26] opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:bg-white group-hover:text-brand">
+                      <ArrowRight size={18} />
+                    </span>
+                  </Link>
+                </ScrollReveal>
+              );
+            })}
           </div>
-        </ScrollReveal>
+
+          {/* CTA */}
+          <ScrollReveal>
+            <div className="mt-14 text-center">
+              <CTAButton to="/diensten" variant="secondary">
+                Alle diensten bekijken
+              </CTAButton>
+            </div>
+          </ScrollReveal>
+        </div>
       </div>
     </section>
   );

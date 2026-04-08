@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollReveal from "./ScrollReveal";
-import CTAButton from "./CTAButton";
 
 const stappen = [
   {
@@ -33,55 +32,65 @@ const stappen = [
 
 export default function WerkwijzeSection() {
   return (
-    <section className="bg-dark py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-16 lg:grid-cols-2">
-          <ScrollReveal>
-            <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand">Onze werkwijze</p>
+    <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+      <div className="overflow-hidden rounded-3xl bg-dark sm:rounded-[2rem]">
+        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+          {/* Header */}
+          <div className="mb-16">
+            <ScrollReveal>
               <h2 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
-                Stap voor stap
+                Onze <span className="text-brand">werkwijze</span>
               </h2>
-              <div className="mt-12 space-y-0">
-                {stappen.map((stap, i) => (
-                  <ScrollReveal key={stap.step} delay={i * 80}>
-                    <Link
-                      to="/werkwijze"
-                      className="group flex items-start gap-6 border-t border-white/10 py-6 transition-colors hover:bg-white/[0.02]">
-                      <span className="font-display text-2xl font-bold text-brand/60">{stap.step}</span>
-                      <div className="flex-1">
-                        <h3 className="font-display text-lg font-semibold text-white">{stap.title}</h3>
-                        <p className="mt-1 text-sm text-gray-400">{stap.description}</p>
-                      </div>
-                      <ArrowRight
-                        size={20}
-                        className="mt-1 text-gray-500 transition-all group-hover:translate-x-1 group-hover:text-brand"
-                      />
-                    </Link>
-                  </ScrollReveal>
-                ))}
-              </div>
-              <ScrollReveal>
-                <div className="mt-10">
-                  <CTAButton to="/werkwijze" variant="outline">
-                    Volledige werkwijze bekijken
-                  </CTAButton>
+            </ScrollReveal>
+          </div>
+
+          {/* Steps Grid */}
+          <div className="grid h-auto grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {stappen.map((stap, i) => {
+              const isEven = i % 2 === 0;
+              return (
+                <ScrollReveal key={stap.step} delay={i * 80}>
+                  <Link
+                    to="/werkwijze"
+                    className={`group relative block h-full p-8 transition-all duration-500 hover:bg-white/10 ${
+                      isEven ? "bg-[#3a3a35] rounded-[0_3rem_0_3rem]" : "bg-[#3a3a35] rounded-[3rem_0_3rem_0]"
+                    }`}>
+                    {/* Step number */}
+                    <span className="mb-4 block font-display text-3xl font-bold text-brand">{stap.step}</span>
+
+                    {/* Content */}
+                    <h3 className="mb-2 font-display text-xl font-semibold text-white">{stap.title}</h3>
+                    <p className="text-sm text-gray-400">{stap.description}</p>
+
+                    {/* Arrow */}
+                    <span className="absolute bottom-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:bg-brand group-hover:text-white">
+                      <ArrowRight size={16} />
+                    </span>
+                  </Link>
+                </ScrollReveal>
+              );
+            })}
+
+            {/* Contact Card - 6th card */}
+            <ScrollReveal delay={480}>
+              <Link
+                to="/contact"
+                className="group relative flex h-full flex-col justify-between rounded-[3rem_0_3rem_0] bg-brand p-8 transition-all duration-500 hover:bg-brand-light">
+                <div>
+                  <span className="mb-4 block font-display text-3xl font-bold text-white">06</span>
+                  <h3 className="mb-2 font-display text-xl font-semibold text-white">Klaar om te starten?</h3>
+                  <p className="text-sm text-white/70">
+                    Neem contact met ons op en ontdek wat we voor je kunnen betekenen.
+                  </p>
                 </div>
-              </ScrollReveal>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={200}>
-            <div className="flex h-full items-center">
-              <div className="overflow-hidden rounded-2xl">
-                <img
-                  src="/actie-foto-5.webp"
-                  alt="Onze werkwijze"
-                  className="h-[600px] w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </ScrollReveal>
+
+                <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand transition-all duration-300 group-hover:bg-white/90">
+                  Contact
+                  <ArrowRight size={16} />
+                </span>
+              </Link>
+            </ScrollReveal>
+          </div>
         </div>
       </div>
     </section>

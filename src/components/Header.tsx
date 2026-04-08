@@ -40,7 +40,7 @@ export default function Header({ inverted = false }: HeaderProps) {
                     inverted
                       ? isActive
                         ? "text-brand font-semibold"
-                        : "text-white/70 hover:text-white"
+                        : "text-white hover:text-white"
                       : isActive
                         ? "text-brand font-semibold"
                         : "text-dark/70 hover:text-dark"

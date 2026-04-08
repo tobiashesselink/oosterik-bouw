@@ -1,4 +1,3 @@
-import AboutStatsSection from "../components/AboutStatsSection";
 import ClosingCtaSection from "../components/ClosingCtaSection";
 import DienstenSection from "../components/DienstenSection";
 import HeroSection from "../components/HeroSection";
@@ -12,7 +11,6 @@ export default function Home() {
       <HeroSection />
       <WaaromOosterikSection />
       <DienstenSection />
-      <AboutStatsSection />
       <ProjectenSliderSection />
       <WerkwijzeSection />
       <ClosingCtaSection />
