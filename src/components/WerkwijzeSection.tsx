@@ -1,96 +1,242 @@
+import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import ScrollReveal from "./ScrollReveal";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const stappen = [
   {
     step: "01",
     title: "Kennismaking & locatiebezoek",
-    description: "We bespreken jouw wensen en bekijken de situatie ter plekke.",
+    description:
+      "We bespreken jouw wensen en bekijken de situatie op locatie. Zo krijgen we een goed beeld van wat er mogelijk is en wat het beste bij jouw woning past.",
   },
   {
     step: "02",
     title: "Plannen uitwerken & offerte",
-    description: "We werken je plannen uit met schetstekeningen en een heldere offerte.",
+    description:
+      "We werken je plannen verder uit — inclusief schetstekeningen waar nodig. Je ontvangt een heldere offerte zonder verborgen kosten of verrassingen.",
   },
   {
     step: "03",
     title: "Akkoord & voorbereiding",
-    description: "Na goedkeuring worden materialen, tekeningen en planning uitgewerkt.",
+    description:
+      "Na goedkeuring starten de voorbereidingen. Tekeningen, materialen en vergunningen worden uitgewerkt totdat alles klaarstaat voor de start.",
   },
   {
     step: "04",
     title: "Uitvoering",
-    description: "De werkzaamheden starten — met jou als enig aanspreekpunt door het hele traject.",
+    description:
+      "De werkzaamheden starten. Jij hebt één vast aanspreekpunt — voor vragen, aanpassingen en beslissingen. Snel schakelen is iets waar we goed in zijn.",
   },
   {
     step: "05",
     title: "Oplevering",
-    description: "Het project wordt netjes opgeleverd, volledig naar jouw wens.",
+    description:
+      "Na afronding leveren we het project netjes op. We lopen alles samen door zodat jij volledig tevreden bent met het eindresultaat.",
   },
 ];
 
 export default function WerkwijzeSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const pinTargetRef = useRef<HTMLDivElement>(null);
+  const stepsListRef = useRef<HTMLDivElement>(null);
+  const numberRef = useRef<HTMLSpanElement>(null);
+  const currentStepRef = useRef(0);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = "#ffffff";
+
+    const mm = gsap.matchMedia();
+
+    // ── Background transition (all screen sizes) ─────────────────────────
+    mm.add("all", () => {
+      const st1 = gsap.to(document.body, {
+        backgroundColor: "#2c2c26",
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+          end: "top 0%",
+          scrub: true,
+        },
+      });
+
+      const st2 = gsap.to(document.body, {
+        backgroundColor: "#ffffff",
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "bottom 50%",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      return () => {
+        st1.scrollTrigger?.kill();
+        st2.scrollTrigger?.kill();
+      };
+    });
+
+    // ── Sticky scroll steps (desktop only) ───────────────────────────────
+    mm.add("(min-width: 768px)", () => {
+      gsap.to(stepsListRef.current, {
+        y: () => -(stappen.length - 1) * window.innerHeight,
+        ease: "none",
+        scrollTrigger: {
+          trigger: pinTargetRef.current,
+          pin: true,
+          start: "top top",
+          end: () => `+=${(stappen.length - 1) * window.innerHeight}`,
+          scrub: 0.8,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const newIndex = Math.round(self.progress * (stappen.length - 1));
+
+            if (newIndex !== currentStepRef.current) {
+              const prevIndex = currentStepRef.current;
+              currentStepRef.current = newIndex;
+              const dir = newIndex > prevIndex ? 1 : -1;
+
+              gsap.killTweensOf(numberRef.current);
+              gsap.to(numberRef.current, {
+                opacity: 0,
+                y: dir * -30,
+                duration: 0.14,
+                ease: "power2.in",
+                onComplete: () => {
+                  if (!numberRef.current) return;
+                  numberRef.current.textContent = stappen[newIndex].step;
+                  gsap.fromTo(
+                    numberRef.current,
+                    { opacity: 0, y: dir * 30 },
+                    { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }
+                  );
+                },
+              });
+            }
+          },
+        },
+      });
+
+      return () => {
+        currentStepRef.current = 0;
+        if (numberRef.current) numberRef.current.textContent = "01";
+      };
+    });
+
+    return () => {
+      mm.revert();
+      document.body.style.backgroundColor = "";
+    };
+  }, []);
+
   return (
-    <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-      <div className="overflow-hidden rounded-3xl bg-dark sm:rounded-[2rem]">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-          {/* Header */}
-          <div className="mb-16">
-            <ScrollReveal>
-              <h2 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
-                Onze <span className="text-brand">werkwijze</span>
-              </h2>
-            </ScrollReveal>
+    <section ref={sectionRef} className="w-full bg-[#2c2c26]">
+
+      {/* ── Section header ─────────────────────────────────────────────── */}
+      <div className="flex min-h-[55vh] flex-col justify-center px-8 pb-12 pt-24 lg:px-16 xl:px-24">
+        <span className="mb-6 inline-block w-fit rounded-full border border-white/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white/40">
+          Werkwijze
+        </span>
+        <h2 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Van plan tot{" "}
+          <span className="text-brand">oplevering</span>
+        </h2>
+        <p className="mt-6 max-w-lg text-base leading-relaxed text-white/45">
+          Stap voor stap, met duidelijke communicatie en geen verrassingen. Zo
+          werkt Oosterik Bouw — van het eerste gesprek tot de sleuteloverdracht.
+        </p>
+      </div>
+
+      {/* ── Mobile: stacked steps ──────────────────────────────────────── */}
+      <div className="md:hidden">
+        {stappen.map((stap, i) => (
+          <div
+            key={stap.step}
+            className="relative overflow-hidden border-t border-white/[0.07] px-8 py-12">
+            {/* Decorative number */}
+            <span className="pointer-events-none absolute -right-4 -top-4 select-none font-display font-black leading-none text-brand/10"
+              style={{ fontSize: "clamp(6rem, 30vw, 10rem)" }}>
+              {stap.step}
+            </span>
+            <span className="mb-4 block font-mono text-xs font-semibold uppercase tracking-widest text-brand">
+              Stap {stap.step}
+            </span>
+            <h3 className="font-display text-3xl font-bold leading-tight text-white">
+              {stap.title}
+            </h3>
+            <p className="mt-4 text-base leading-relaxed text-white/45">
+              {stap.description}
+            </p>
           </div>
+        ))}
+      </div>
 
-          {/* Steps Grid */}
-          <div className="grid h-auto grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {stappen.map((stap, i) => {
-              const isEven = i % 2 === 0;
-              return (
-                <ScrollReveal key={stap.step} delay={i * 80}>
-                  <Link
-                    to="/werkwijze"
-                    className={`group relative block h-full p-8 transition-all duration-500 hover:bg-white/10 ${
-                      isEven ? "bg-[#3a3a35] rounded-[0_3rem_0_3rem]" : "bg-[#3a3a35] rounded-[3rem_0_3rem_0]"
-                    }`}>
-                    {/* Step number */}
-                    <span className="mb-4 block font-display text-3xl font-bold text-brand">{stap.step}</span>
+      {/* ── Desktop: pinned sticky scroll ──────────────────────────────── */}
+      <div ref={pinTargetRef} style={{ height: "100vh" }} className="hidden md:block">
+        <div className="flex h-full">
 
-                    {/* Content */}
-                    <h3 className="mb-2 font-display text-xl font-semibold text-white">{stap.title}</h3>
-                    <p className="text-sm text-gray-400">{stap.description}</p>
-
-                    {/* Arrow */}
-                    <span className="absolute bottom-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:bg-brand group-hover:text-white">
-                      <ArrowRight size={16} />
-                    </span>
-                  </Link>
-                </ScrollReveal>
-              );
-            })}
-
-            {/* Contact Card - 6th card */}
-            <ScrollReveal delay={480}>
-              <Link
-                to="/contact"
-                className="group relative flex h-full flex-col justify-between rounded-[3rem_0_3rem_0] bg-brand p-8 transition-all duration-500 hover:bg-brand-light">
-                <div>
-                  <span className="mb-4 block font-display text-3xl font-bold text-white">06</span>
-                  <h3 className="mb-2 font-display text-xl font-semibold text-white">Klaar om te starten?</h3>
-                  <p className="text-sm text-white/70">
-                    Neem contact met ons op en ontdek wat we voor je kunnen betekenen.
+          {/* Left: scrolling step content */}
+          <div className="relative h-full w-[55%] overflow-hidden border-r border-white/[0.07]">
+            <div ref={stepsListRef}>
+              {stappen.map((stap, i) => (
+                <div
+                  key={stap.step}
+                  style={{ height: "100vh" }}
+                  className="flex flex-col justify-center px-8 lg:px-16 xl:px-20">
+                  <span className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-brand">
+                    Stap {stap.step}
+                  </span>
+                  <h3 className="font-display text-4xl font-bold leading-tight text-white lg:text-5xl">
+                    {stap.title}
+                  </h3>
+                  <p className="mt-6 max-w-md text-lg leading-relaxed text-white/45">
+                    {stap.description}
                   </p>
+                  {/* Progress dots */}
+                  <div className="mt-10 flex items-center gap-2">
+                    {stappen.map((_, di) => (
+                      <span
+                        key={di}
+                        className={`h-[3px] rounded-full transition-none ${
+                          di === i ? "w-7 bg-brand" : "w-[10px] bg-white/20"
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
-
-                <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand transition-all duration-300 group-hover:bg-white/90">
-                  Contact
-                  <ArrowRight size={16} />
-                </span>
-              </Link>
-            </ScrollReveal>
+              ))}
+            </div>
           </div>
+
+          {/* Right: big sticky number */}
+          <div className="flex h-full w-[45%] items-center justify-center">
+            <span
+              ref={numberRef}
+              className="select-none font-display font-black leading-none text-brand"
+              style={{ fontSize: "clamp(7rem, 20vw, 18rem)" }}>
+              01
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Footer strip ───────────────────────────────────────────────── */}
+      <div className="border-t border-white/[0.06] px-8 py-12 lg:px-16">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-white/35">
+            Benieuwd wat wij voor jou kunnen betekenen?
+          </p>
+          <Link
+            to="/contact"
+            className="inline-flex w-fit items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-light active:scale-[0.97]">
+            Plan een locatiebezoek
+            <ArrowRight size={16} />
+          </Link>
         </div>
       </div>
     </section>
