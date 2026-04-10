@@ -1,5 +1,6 @@
-import { ChevronRight, ArrowRight } from "lucide-react";
-import CTAButton from "../components/CTAButton";
+import Badge from "../components/Badge";
+import ClosingCtaSection from "../components/ClosingCtaSection";
+import PageHero from "../components/PageHero";
 import ScrollReveal from "../components/ScrollReveal";
 
 const diensten = [
@@ -92,87 +93,72 @@ const diensten = [
 export default function Diensten() {
   return (
     <>
-      {/* Page header */}
-      <section className="bg-dark py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Onze diensten
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-gray-300">
-            Oosterik Bouw voert kleine tot middelgrote bouwprojecten uit voor
-            particulieren en bedrijven. Van een complete aanbouw tot verduurzaming
-            — wij regelen het van A tot Z, met één vast aanspreekpunt.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        badge="Diensten"
+        title="Onze diensten"
+        subtitle="Van aanbouw tot verduurzaming — Oosterik Bouw regelt het van A tot Z, met één vast aanspreekpunt."
+      />
 
-      {/* Diensten */}
-      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-        <div className="space-y-24">
-          {diensten.map((dienst, index) => (
-            <ScrollReveal key={dienst.title}>
-              <section
-                id={dienst.title.toLowerCase().replace(/[^a-z]+/g, "-")}
-                className="grid items-center gap-12 lg:grid-cols-2"
-              >
-                <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold text-brand">
-                    <ChevronRight size={12} />
-                    Dienst {index + 1}
+      <section className="bg-white py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="space-y-0">
+            {diensten.map((dienst, index) => (
+              <ScrollReveal key={dienst.title}>
+                <div
+                  className={`grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-2 ${
+                    index < diensten.length - 1
+                      ? "border-b border-dark/[0.06]"
+                      : ""
+                  }`}
+                >
+                  {/* Text column */}
+                  <div className={index % 2 === 1 ? "lg:order-2" : ""}>
+                    <span className="mb-3 block font-mono text-xs font-semibold uppercase tracking-widest text-brand">
+                      Dienst {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h2 className="font-display text-3xl font-bold leading-tight text-dark sm:text-4xl">
+                      {dienst.title}
+                    </h2>
+                    <p className="mt-6 leading-relaxed text-dark-lighter">
+                      {dienst.text}
+                    </p>
+                    <ul className="mt-8 space-y-3">
+                      {dienst.items.map((item) => (
+                        <li key={item} className="flex items-start gap-3 text-sm">
+                          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                              <path
+                                d="M2.5 6L5 8.5L9.5 3.5"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </span>
+                          <span className="text-dark">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <h2 className="font-display text-2xl font-bold tracking-tight text-dark sm:text-3xl">
-                    {dienst.title}
-                  </h2>
-                  <p className="mt-4 leading-relaxed text-dark-lighter">
-                    {dienst.text}
-                  </p>
-                  <ul className="mt-6 space-y-2.5">
-                    {dienst.items.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-sm">
-                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
-                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                            <path d="M2.5 6L5 8.5L9.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                        <span className="text-dark-light">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className={`overflow-hidden rounded-2xl shadow-xl ${index % 2 === 1 ? "lg:order-1" : ""}`}>
-                  <div className="aspect-[4/3]">
+
+                  {/* Image column */}
+                  <div className={`overflow-hidden rounded-[2rem] ${index % 2 === 1 ? "lg:order-1" : ""}`}>
                     <img
                       src={dienst.image}
                       alt={dienst.title}
-                      className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                      className="aspect-[4/3] w-full object-cover"
                       loading="lazy"
                     />
                   </div>
                 </div>
-              </section>
-            </ScrollReveal>
-          ))}
-        </div>
-      </div>
-
-      {/* CTA */}
-      <section className="bg-dark py-24">
-        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Wil je weten wat wij voor jou kunnen betekenen?
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-gray-300">
-            Neem vrijblijvend contact op. We bespreken je wensen tijdens een
-            locatiebezoek en stellen een passende offerte op.
-          </p>
-          <div className="mt-12">
-            <CTAButton to="/contact" size="lg">
-              Vraag een vrijblijvende offerte aan
-              <ArrowRight className="ml-2" size={18} />
-            </CTAButton>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
+
+      <ClosingCtaSection />
     </>
   );
 }

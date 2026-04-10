@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import CTAButton from "../components/CTAButton";
+import PageHero from "../components/PageHero";
+import ClosingCtaSection from "../components/ClosingCtaSection";
 import ScrollReveal from "../components/ScrollReveal";
 
 const categories = [
@@ -75,31 +76,24 @@ export default function Projecten() {
 
   return (
     <>
-      {/* Page header */}
-      <section className="bg-dark py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Onze projecten
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-gray-300">
-            Bekijk een selectie van de bouwprojecten die Oosterik Bouw heeft
-            gerealiseerd. Elk project wordt met dezelfde zorg en vakmanschap uitgevoerd.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        badge="Portfolio"
+        title="Onze projecten"
+        subtitle="Bekijk een selectie van gerealiseerde projecten — elk uitgevoerd met vakmanschap en persoonlijke betrokkenheid."
+      />
 
-      {/* Filter */}
-      <section className="sticky top-[65px] z-40 border-b border-surface-dark bg-white/95 backdrop-blur-md">
+      {/* Sticky filter bar */}
+      <section className="sticky top-[65px] z-40 border-b border-dark/[0.06] bg-white/95 backdrop-blur-md">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex gap-2 overflow-x-auto py-5 scrollbar-hide">
+          <div className="flex gap-2 overflow-x-auto py-4 scrollbar-hide">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`shrink-0 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 cursor-pointer ${
+                className={`shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${
                   activeCategory === cat
-                    ? "bg-brand text-white shadow-lg shadow-brand/25"
-                    : "bg-surface-warm text-dark-light hover:bg-surface-dark hover:text-dark"
+                    ? "bg-brand text-white"
+                    : "bg-[#f3f3f3] text-dark/60 hover:bg-dark/[0.08] hover:text-dark"
                 }`}
               >
                 {cat}
@@ -110,7 +104,7 @@ export default function Projecten() {
       </section>
 
       {/* Projects grid */}
-      <section className="py-20">
+      <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           {filteredProjects.length === 0 ? (
             <div className="py-20 text-center">
@@ -119,34 +113,33 @@ export default function Projecten() {
               </p>
             </div>
           ) : (
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filteredProjects.map((project, i) => (
-                <ScrollReveal key={project.id} delay={i * 100}>
+                <ScrollReveal key={project.id} delay={i * 80}>
                   <Link
                     to={`/projecten/${project.id}`}
-                    className="group block overflow-hidden rounded-2xl border border-surface-dark bg-white transition-all duration-300 hover:border-brand/20 hover:shadow-xl hover:shadow-brand/5"
+                    className="group relative block h-[380px] overflow-hidden rounded-2xl bg-[#0f0f0a]"
                   >
-                    <div className="aspect-[16/10] overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <span className="inline-block rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold text-brand">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
+                      style={{ filter: "brightness(0.6) saturate(0.8)" }}
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent" />
+                    <div className="absolute inset-0 flex flex-col justify-end p-7">
+                      <span className="mb-2 font-mono text-xs font-semibold uppercase tracking-widest text-brand">
                         {project.category}
                       </span>
-                      <h3 className="mt-3 font-display text-lg font-semibold text-dark">
+                      <h3 className="font-display text-2xl font-bold leading-tight text-white">
                         {project.title}
                       </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-dark-lighter">
+                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/60">
                         {project.description}
                       </p>
-                      <span className="mt-5 inline-flex items-center text-sm font-semibold text-brand">
-                        Bekijk project
-                        <ArrowRight size={14} className="ml-1.5 transition-transform duration-200 group-hover:translate-x-1" />
+                      <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand">
+                        Bekijk project <ArrowRight size={14} />
                       </span>
                     </div>
                   </Link>
@@ -157,23 +150,7 @@ export default function Projecten() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-white py-24">
-        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-dark sm:text-4xl">
-            Heb je een project in gedachten?
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-dark-lighter">
-            Vertel ons wat je wilt bouwen. We denken graag met je mee.
-          </p>
-          <div className="mt-12">
-            <CTAButton to="/contact" size="lg">
-              Neem contact op
-              <ArrowRight className="ml-2" size={18} />
-            </CTAButton>
-          </div>
-        </div>
-      </section>
+      <ClosingCtaSection />
     </>
   );
 }

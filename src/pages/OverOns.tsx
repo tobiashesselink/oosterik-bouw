@@ -1,13 +1,7 @@
-import {
-  Shield,
-  RefreshCw,
-  Lightbulb,
-  Award,
-  Heart,
-  ArrowRight,
-  Quote,
-} from "lucide-react";
-import CTAButton from "../components/CTAButton";
+import { Shield, RefreshCw, Lightbulb, Award, Heart } from "lucide-react";
+import Badge from "../components/Badge";
+import ClosingCtaSection from "../components/ClosingCtaSection";
+import PageHero from "../components/PageHero";
 import ScrollReveal from "../components/ScrollReveal";
 
 const kernwaarden = [
@@ -41,25 +35,19 @@ const kernwaarden = [
 export default function OverOns() {
   return (
     <>
-      {/* Page header */}
-      <section className="bg-dark py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Wie is Oosterik Bouw?
-          </h1>
-        </div>
-      </section>
+      <PageHero badge="Over ons" title="Wie is Oosterik Bouw?" />
 
-      {/* Intro */}
-      <section className="py-24">
+      {/* Intro section */}
+      <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <ScrollReveal>
               <div>
-                <span className="mb-4 inline-block rounded-full bg-brand/10 px-4 py-1.5 text-xs font-semibold text-brand">
-                  Over ons
-                </span>
-                <p className="text-lg leading-relaxed text-dark-lighter">
+                <Badge variant="light" className="mb-6">Over ons</Badge>
+                <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
+                  Persoonlijk betrokken bij jouw project
+                </h2>
+                <p className="mt-6 text-lg leading-relaxed text-dark-lighter">
                   Oosterik Bouw is een jong, allround bouwbedrijf dat gespecialiseerd
                   is in kleine tot middelgrote bouwprojecten voor particulieren, kleine
                   ondernemers en bedrijven. Met jarenlange ervaring in de bouw en een
@@ -73,87 +61,61 @@ export default function OverOns() {
                 </p>
               </div>
             </ScrollReveal>
+
             <ScrollReveal delay={200}>
-              <div className="overflow-hidden rounded-2xl shadow-xl">
+              <div className="overflow-hidden rounded-[2rem]">
                 <img
                   src="/actie-foto-1.webp"
                   alt="Oosterik Bouw aan het werk"
-                  className="aspect-[4/3] w-full object-cover"
+                  className="h-[480px] w-full object-cover"
                   loading="lazy"
                 />
               </div>
             </ScrollReveal>
           </div>
-        </div>
-      </section>
 
-      {/* Aanpak */}
-      <section className="relative overflow-hidden bg-white py-24">
-        <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-brand/5 blur-3xl" />
-        <div className="relative mx-auto max-w-3xl px-6 text-center lg:px-8">
-          <ScrollReveal>
-            <span className="mb-4 inline-block rounded-full bg-brand/10 px-4 py-1.5 text-xs font-semibold text-brand">
-              Onze aanpak
-            </span>
-            <h2 className="font-display text-3xl font-bold tracking-tight text-dark sm:text-4xl">
-              Persoonlijk betrokken bij jouw project
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-dark-lighter">
-              Het grootste verschil met grotere aannemers? Bij Oosterik Bouw heb je
-              altijd één vast aanspreekpunt. De persoon die jouw plannen bespreekt, de
-              offerte opstelt en de uitvoering doet — dat is dezelfde persoon. Geen
-              doorgeven, geen miscommunicaties en geen afwachten wie er dan 'even naar
-              kijkt'.
-            </p>
-            <p className="mt-5 text-lg leading-relaxed text-dark-lighter">
-              Dat maakt het ook makkelijk om tijdens een project bij te sturen.
-              Verandert er iets in je wensen? Dan bespreken we dat direct en passen we
-              het plan aan. Flexibel en daadkrachtig, zonder omwegen.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Kernwaarden */}
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center">
-              <h2 className="font-display text-3xl font-bold tracking-tight text-dark sm:text-4xl">
-                Waar Oosterik Bouw voor staat
-              </h2>
-            </div>
-          </ScrollReveal>
-          <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            {kernwaarden.map((waarde, i) => (
-              <ScrollReveal key={waarde.title} delay={i * 100}>
-                <div className="group flex h-full flex-col items-center rounded-2xl border border-surface-dark bg-white p-7 text-center transition-all duration-300 hover:border-brand/20 hover:shadow-xl hover:shadow-brand/5">
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand/10 text-brand transition-all duration-300 group-hover:bg-brand group-hover:text-white group-hover:shadow-lg group-hover:shadow-brand/25">
-                    <waarde.icon size={24} />
-                  </div>
-                  <h3 className="font-display text-lg font-semibold text-dark">
-                    {waarde.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-dark-lighter">
-                    {waarde.description}
-                  </p>
+          {/* Kernwaarden */}
+          <div className="mt-16 sm:mt-24">
+            <div className="rounded-3xl bg-[#f3f3f3] px-6 py-12 sm:p-16">
+              <ScrollReveal>
+                <div className="mb-10 text-center">
+                  <Badge variant="light" className="mb-4">Kernwaarden</Badge>
+                  <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
+                    Waar Oosterik Bouw voor staat
+                  </h2>
                 </div>
               </ScrollReveal>
-            ))}
+
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+                {kernwaarden.map((waarde, i) => (
+                  <ScrollReveal key={waarde.title} delay={i * 80}>
+                    <div className="flex h-full flex-col rounded-[2rem_0_2rem_2rem] bg-white p-8">
+                      <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-brand text-white">
+                        <waarde.icon size={22} />
+                      </div>
+                      <h3 className="font-display text-xl font-bold text-dark mb-3">
+                        {waarde.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-dark-lighter">
+                        {waarde.description}
+                      </p>
+                    </div>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Doelgroep */}
-      <section className="bg-white py-24">
+      {/* Doelgroep section */}
+      <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <ScrollReveal>
               <div>
-                <span className="mb-4 inline-block rounded-full bg-brand/10 px-4 py-1.5 text-xs font-semibold text-brand">
-                  Doelgroep
-                </span>
-                <h2 className="font-display text-3xl font-bold tracking-tight text-dark sm:text-4xl">
+                <Badge variant="light" className="mb-6">Doelgroep</Badge>
+                <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
                   Voor wie werkt Oosterik Bouw?
                 </h2>
                 <p className="mt-6 text-lg leading-relaxed text-dark-lighter">
@@ -166,8 +128,9 @@ export default function OverOns() {
                 </p>
               </div>
             </ScrollReveal>
+
             <ScrollReveal delay={200}>
-              <div className="rounded-2xl bg-surface-warm p-8">
+              <div className="rounded-[2rem] bg-[#2c2c26] p-8">
                 <div className="grid gap-4 sm:grid-cols-2">
                   {[
                     { value: "100%", label: "Persoonlijke aanpak" },
@@ -177,12 +140,12 @@ export default function OverOns() {
                   ].map((stat) => (
                     <div
                       key={stat.label}
-                      className="rounded-xl bg-white p-6 text-center shadow-sm transition-all hover:shadow-md"
+                      className="rounded-2xl bg-white/5 p-6 text-center"
                     >
-                      <p className="font-display text-3xl font-bold text-brand">
+                      <p className="font-display text-4xl font-bold text-brand">
                         {stat.value}
                       </p>
-                      <p className="mt-1 text-sm text-dark-lighter">{stat.label}</p>
+                      <p className="mt-1 text-sm text-white/60">{stat.label}</p>
                     </div>
                   ))}
                 </div>
@@ -192,18 +155,12 @@ export default function OverOns() {
         </div>
       </section>
 
-      {/* Quote */}
-      <section className="py-24">
+      {/* Quote section */}
+      <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-4xl px-6 lg:px-8">
           <ScrollReveal>
-            <div className="relative overflow-hidden rounded-2xl bg-dark p-10 sm:p-16">
-              <div className="absolute left-0 top-0 h-64 w-64 rounded-full bg-brand/10 blur-3xl" />
-              <Quote
-                size={48}
-                className="relative mb-6 text-brand/40"
-                strokeWidth={1}
-              />
-              <blockquote className="relative text-xl leading-relaxed text-gray-200 sm:text-2xl">
+            <div className="rounded-[2rem] bg-[#2c2c26] p-10 sm:p-16">
+              <blockquote className="text-xl leading-relaxed text-white/70 sm:text-2xl">
                 "Als u besluit met Oosterik Bouw uw plannen tot uitvoering te brengen,
                 staan wij paraat met onze jarenlange ervaring. De wens van de klant staat
                 centraal — goede communicatie rechtstreeks met de opdrachtgever vinden wij
@@ -214,24 +171,7 @@ export default function OverOns() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-white py-24">
-        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-dark sm:text-4xl">
-            Nieuwsgierig geworden?
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-dark-lighter">
-            We leren je graag kennen. Neem contact op voor een vrijblijvend
-            kennismakingsgesprek op locatie.
-          </p>
-          <div className="mt-12">
-            <CTAButton to="/contact" size="lg">
-              Neem contact op
-              <ArrowRight className="ml-2" size={18} />
-            </CTAButton>
-          </div>
-        </div>
-      </section>
+      <ClosingCtaSection />
     </>
   );
 }

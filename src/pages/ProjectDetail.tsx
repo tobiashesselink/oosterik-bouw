@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, MapPin, Calendar, Briefcase } from "lucide-react";
 import CTAButton from "../components/CTAButton";
+import ClosingCtaSection from "../components/ClosingCtaSection";
 import ScrollReveal from "../components/ScrollReveal";
 
 const projectData: Record<string, {
@@ -111,78 +112,76 @@ export default function ProjectDetail() {
 
   return (
     <>
-      {/* Hero image */}
-      <section className="relative h-[55vh] min-h-[420px]">
+      {/* Hero */}
+      <section className="relative h-[60vh] min-h-[460px]">
         <img
           src={project.image}
           alt={project.title}
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12">
+        <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/60 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 px-6 pb-12 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <Link
               to="/projecten"
-              className="mb-4 inline-flex items-center gap-2 text-sm text-white/80 transition-colors hover:text-white"
+              className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-white/70 transition-colors hover:text-white"
             >
-              <ArrowLeft size={16} />
-              Terug naar projecten
+              <ArrowLeft size={15} /> Alle projecten
             </Link>
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-brand px-3 py-1 text-xs font-semibold text-white">
-                {project.category}
-              </span>
-            </div>
-            <h1 className="mt-3 font-display text-3xl font-bold text-white sm:text-4xl">
+            <span className="mb-3 block font-mono text-xs font-semibold uppercase tracking-widest text-brand">
+              {project.category}
+            </span>
+            <h1 className="font-display text-4xl font-bold text-white sm:text-5xl">
               {project.title}
             </h1>
           </div>
         </div>
       </section>
 
-      {/* Info + Description */}
-      <section className="py-16 lg:py-20">
+      {/* Content section */}
+      <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-3">
-            {/* Meta info */}
+
+            {/* Meta sidebar */}
             <div className="lg:order-2">
-              <div className="sticky top-24 rounded-2xl border border-surface-dark bg-white p-7 shadow-sm">
-                <h3 className="mb-5 font-display text-lg font-semibold text-dark">
+              <div className="sticky top-24 rounded-[2rem] bg-[#2c2c26] p-8">
+                <h3 className="mb-6 font-display text-lg font-semibold text-white">
                   Projectinformatie
                 </h3>
-                <dl className="space-y-5 text-sm">
-                  <div className="flex items-start gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand">
-                      <Briefcase size={16} />
+                <dl className="space-y-5">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-brand">
+                      <Briefcase size={15} />
                     </div>
                     <div>
-                      <dt className="text-dark-lighter">Type project</dt>
-                      <dd className="mt-0.5 font-medium text-dark">{project.type}</dd>
+                      <dt className="text-xs text-white/40">Type project</dt>
+                      <dd className="mt-0.5 text-sm font-semibold text-white">{project.type}</dd>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand">
-                      <MapPin size={16} />
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-brand">
+                      <MapPin size={15} />
                     </div>
                     <div>
-                      <dt className="text-dark-lighter">Locatie</dt>
-                      <dd className="mt-0.5 font-medium text-dark">{project.location}</dd>
+                      <dt className="text-xs text-white/40">Locatie</dt>
+                      <dd className="mt-0.5 text-sm font-semibold text-white">{project.location}</dd>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand">
-                      <Calendar size={16} />
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-brand">
+                      <Calendar size={15} />
                     </div>
                     <div>
-                      <dt className="text-dark-lighter">Jaar</dt>
-                      <dd className="mt-0.5 font-medium text-dark">{project.year}</dd>
+                      <dt className="text-xs text-white/40">Jaar</dt>
+                      <dd className="mt-0.5 text-sm font-semibold text-white">{project.year}</dd>
                     </div>
                   </div>
                 </dl>
               </div>
             </div>
 
-            {/* Content */}
+            {/* Main content */}
             <div className="lg:col-span-2 lg:order-1">
               <ScrollReveal>
                 <h2 className="font-display text-2xl font-bold text-dark">
@@ -193,37 +192,35 @@ export default function ProjectDetail() {
                 </p>
               </ScrollReveal>
 
-              {/* Tasks */}
               <ScrollReveal delay={100}>
-                <h3 className="mt-12 font-display text-xl font-semibold text-dark">
+                <h3 className="mt-12 font-display text-2xl font-bold text-dark">
                   Wat is er gedaan?
                 </h3>
-                <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
+                <ul className="mt-5 grid gap-3 sm:grid-cols-2">
                   {project.tasks.map((task) => (
-                    <li key={task} className="flex items-start gap-3 text-sm">
+                    <li key={task} className="flex items-start gap-3">
                       <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                           <path d="M2.5 6L5 8.5L9.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </span>
-                      <span className="text-dark-light">{task}</span>
+                      <span className="text-sm text-dark">{task}</span>
                     </li>
                   ))}
                 </ul>
               </ScrollReveal>
 
-              {/* Gallery */}
               <ScrollReveal delay={200}>
-                <h3 className="mt-12 font-display text-xl font-semibold text-dark">
+                <h3 className="mt-12 font-display text-2xl font-bold text-dark">
                   Fotogalerij
                 </h3>
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   {project.gallery.map((img, i) => (
-                    <div key={i} className="group overflow-hidden rounded-xl">
+                    <div key={i} className="overflow-hidden rounded-[2rem] aspect-[4/3]">
                       <img
                         src={img}
                         alt={`${project.title} - foto ${i + 1}`}
-                        className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                         loading="lazy"
                       />
                     </div>
@@ -231,30 +228,12 @@ export default function ProjectDetail() {
                 </div>
               </ScrollReveal>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-dark py-24">
-        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Soortgelijk project in gedachten?
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-gray-300">
-            Wij vertellen je graag wat de mogelijkheden zijn voor jouw situatie.
-            Neem vrijblijvend contact op voor een gesprek op locatie.
-          </p>
-          <div className="mt-12 flex flex-wrap justify-center gap-4">
-            <CTAButton to="/contact" size="lg">
-              Vraag een vrijblijvende offerte aan
-            </CTAButton>
-            <CTAButton to="/projecten" variant="outline" size="lg">
-              Bekijk alle projecten
-            </CTAButton>
-          </div>
-        </div>
-      </section>
+      <ClosingCtaSection />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
+import PageHero from "../components/PageHero";
 import ScrollReveal from "../components/ScrollReveal";
 
 const projectTypes = [
@@ -23,28 +24,20 @@ export default function Contact() {
 
   return (
     <>
-      {/* Page header */}
-      <section className="bg-dark py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h1 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Neem contact op
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-gray-300">
-            Heb je een bouwplan, een vraag of wil je gewoon eens sparren over de
-            mogelijkheden? Neem gerust contact op. We reageren snel en komen graag bij
-            je langs voor een vrijblijvend locatiebezoek.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        badge="Contact"
+        title="Neem contact op"
+        subtitle="Heb je een bouwplan of vraag? We reageren snel en komen graag bij je langs voor een vrijblijvend locatiebezoek."
+      />
 
       {/* Form + Contact info */}
-      <section className="py-24">
+      <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-5">
-            {/* Form */}
+            {/* Form — left col */}
             <div className="lg:col-span-3">
               <ScrollReveal>
-                <div className="rounded-2xl border border-surface-dark bg-white p-8 shadow-sm sm:p-10">
+                <div className="rounded-[2rem] border border-dark/[0.06] bg-white p-8 shadow-sm sm:p-10">
                   {submitted ? (
                     <div className="flex flex-col items-center py-16 text-center">
                       <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
@@ -74,7 +67,7 @@ export default function Contact() {
                               id="naam"
                               name="naam"
                               required
-                              className="w-full rounded-xl border border-surface-dark bg-surface-warm px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark-lighter/50 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                              className="w-full rounded-xl border border-dark/[0.08] bg-[#f5f5f5] px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
                               placeholder="Je volledige naam"
                             />
                           </div>
@@ -87,7 +80,7 @@ export default function Contact() {
                               id="email"
                               name="email"
                               required
-                              className="w-full rounded-xl border border-surface-dark bg-surface-warm px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark-lighter/50 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                              className="w-full rounded-xl border border-dark/[0.08] bg-[#f5f5f5] px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
                               placeholder="je@email.nl"
                             />
                           </div>
@@ -102,7 +95,7 @@ export default function Contact() {
                               type="tel"
                               id="telefoon"
                               name="telefoon"
-                              className="w-full rounded-xl border border-surface-dark bg-surface-warm px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark-lighter/50 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                              className="w-full rounded-xl border border-dark/[0.08] bg-[#f5f5f5] px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
                               placeholder="06-12345678"
                             />
                           </div>
@@ -113,7 +106,7 @@ export default function Contact() {
                             <select
                               id="type"
                               name="type"
-                              className="w-full rounded-xl border border-surface-dark bg-surface-warm px-4 py-3.5 text-sm text-dark transition-all duration-200 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                              className="w-full rounded-xl border border-dark/[0.08] bg-[#f5f5f5] px-4 py-3.5 text-sm text-dark transition-all duration-200 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
                             >
                               <option value="">Selecteer een type</option>
                               {projectTypes.map((type) => (
@@ -131,14 +124,14 @@ export default function Contact() {
                             id="bericht"
                             name="bericht"
                             rows={5}
-                            className="w-full resize-none rounded-xl border border-surface-dark bg-surface-warm px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark-lighter/50 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                            className="w-full resize-none rounded-xl border border-dark/[0.08] bg-[#f5f5f5] px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
                             placeholder="Vertel kort over je project of vraag..."
                           />
                         </div>
 
                         <button
                           type="submit"
-                          className="inline-flex w-full items-center justify-center rounded-xl bg-brand px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:bg-brand-light hover:shadow-lg hover:shadow-brand/25 active:scale-[0.98] sm:w-auto cursor-pointer"
+                          className="inline-flex w-full items-center justify-center rounded-full bg-brand px-8 py-4 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-light active:scale-[0.98] sm:w-auto cursor-pointer"
                         >
                           <Send size={18} className="mr-2" />
                           Verstuur aanvraag
@@ -150,12 +143,12 @@ export default function Contact() {
               </ScrollReveal>
             </div>
 
-            {/* Contact info */}
+            {/* Contact info — right col */}
             <div className="lg:col-span-2">
-              <div className="sticky top-24 space-y-6">
+              <div className="sticky top-24 space-y-5">
                 <ScrollReveal delay={200}>
-                  <div className="rounded-2xl border border-surface-dark bg-white p-8 shadow-sm">
-                    <h3 className="mb-6 font-display text-xl font-semibold text-dark">
+                  <div className="rounded-[2rem] border border-dark/[0.06] bg-white p-8 shadow-sm">
+                    <h3 className="font-display text-xl font-semibold text-dark mb-6">
                       Contactgegevens
                     </h3>
                     <ul className="space-y-5">
@@ -166,12 +159,12 @@ export default function Contact() {
                         { icon: Clock, label: "Bereikbaarheid", value: "Werkdagen [tijden]" },
                       ].map((item) => (
                         <li key={item.label} className="flex items-start gap-4">
-                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand">
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
                             <item.icon size={18} />
                           </div>
                           <div>
-                            <p className="text-sm text-dark-lighter">{item.label}</p>
-                            <p className="mt-0.5 font-medium text-dark">{item.value}</p>
+                            <p className="text-xs text-dark-lighter">{item.label}</p>
+                            <p className="mt-0.5 text-sm font-semibold text-dark">{item.value}</p>
                           </div>
                         </li>
                       ))}
@@ -180,11 +173,11 @@ export default function Contact() {
                 </ScrollReveal>
 
                 <ScrollReveal delay={300}>
-                  <div className="rounded-2xl bg-dark p-8 text-white">
-                    <h3 className="mb-4 font-display text-xl font-semibold">
+                  <div className="rounded-[2rem] bg-[#2c2c26] p-8">
+                    <h3 className="font-display text-lg font-semibold text-white mb-4">
                       Hoe gaat het na je aanvraag?
                     </h3>
-                    <p className="text-sm leading-relaxed text-gray-300">
+                    <p className="text-sm leading-relaxed text-white/50">
                       Na ontvangst van je aanvraag nemen we zo snel mogelijk contact met
                       je op — meestal binnen één werkdag. We plannen dan een afspraak op
                       locatie om je wensen te bespreken en de situatie te bekijken. Van
