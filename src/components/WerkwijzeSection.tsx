@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
+import Badge from "./Badge";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -139,9 +140,7 @@ export default function WerkwijzeSection() {
 
       {/* ── Section header ─────────────────────────────────────────────── */}
       <div className="flex min-h-[55vh] flex-col justify-center px-8 pb-12 pt-24 lg:px-16 xl:px-24">
-        <span className="mb-6 inline-block w-fit rounded-full border border-white/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white/40">
-          Werkwijze
-        </span>
+        <Badge variant="dark" className="mb-6">Werkwijze</Badge>
         <h2 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
           Van plan tot{" "}
           <span className="text-brand">oplevering</span>

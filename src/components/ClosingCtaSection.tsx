@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import Badge from "./Badge";
 import ScrollReveal from "./ScrollReveal";
 
 export default function ClosingCtaSection() {
@@ -8,9 +9,7 @@ export default function ClosingCtaSection() {
       <div className="overflow-hidden rounded-3xl bg-brand sm:rounded-[2rem]">
         <div className="mx-auto max-w-4xl px-8 py-20 text-center lg:px-12 lg:py-28">
           <ScrollReveal>
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white backdrop-blur-sm">
-              Vrijblijvend kennismakingsgesprek
-            </span>
+            <Badge variant="brand" className="mb-6">Vrijblijvend kennismakingsgesprek</Badge>
             <h2 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
               Jouw bouwproject begint
               <br />

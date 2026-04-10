@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import Badge from "./Badge";
 import ScrollReveal from "./ScrollReveal";
 
 export default function WaaromOosterikSection() {
@@ -10,9 +11,7 @@ export default function WaaromOosterikSection() {
           {/* Left — statement */}
           <ScrollReveal>
             <div className="flex flex-col">
-              <span className="mb-6 inline-block w-fit rounded-full border border-dark/10 bg-[#f3f3f3] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-dark/50">
-                Waarom Oosterik
-              </span>
+              <Badge className="mb-6">Waarom Oosterik</Badge>
               <h2 className="font-display text-4xl font-bold leading-[1.1] tracking-tight text-dark sm:text-5xl lg:text-6xl">
                 Persoonlijk.{" "}
                 <span className="text-brand">Meedenkend.</span>{" "}
