@@ -1,10 +1,7 @@
 import gsap from "gsap";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import type { Swiper as SwiperType } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper.css";
 import CTAButton from "./CTAButton";
 import ScrollReveal from "./ScrollReveal";
 
@@ -55,186 +52,196 @@ const projecten = [
   },
 ];
 
-const loopedProjecten = [...projecten, ...projecten, ...projecten];
-
-const swiperGlobalRef: { current: SwiperType | null } = { current: null };
-
-// Blokkeert animatie terwijl al een animatie loopt zodat rapid-clicking niet werkt.
-let isAnimating = false;
-
-/**
- * Animeer naar de volgende of vorige slide met GSAP zodat de breedte van de slides
- * en de wrapper-translate synchroon bewegen. Swiper's eigen animatie gebruiken we
- * niet meer — die berekent de doelpositie vóór de breedte verandert waardoor het
- * hakkerig oogt.
- */
-function navigate(swiper: SwiperType, direction: "next" | "prev") {
-  if (isAnimating) return;
-  isAnimating = true;
-
-  const curr = swiper.activeIndex;
-  const nextIdx = direction === "next" ? curr + 1 : curr - 1;
-
-  if (nextIdx < 0 || nextIdx >= swiper.slides.length) {
-    isAnimating = false;
-    return;
-  }
-
-  const currentSlide = swiper.slides[curr] as HTMLElement;
-  const nextSlide = swiper.slides[nextIdx] as HTMLElement;
-  const wrapperEl = swiper.wrapperEl as HTMLElement;
-
-  // Bereken de doelpositie door tijdelijk de eindbreedtes in te stellen,
-  // zodat Swiper's snapGrid de correcte waarden bevat.
-  const savedCurrent = currentSlide.style.width;
-  const savedNext = nextSlide.style.width;
-
-  currentSlide.style.width = "320px";
-  nextSlide.style.width = "640px";
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (swiper as any).updateSlides?.();
-
-  const snapIdx = Math.min(nextIdx, swiper.snapGrid.length - 1);
-  const endTranslate = -swiper.snapGrid[snapIdx];
-
-  // Herstel de originele inline-breedtes zodat GSAP kan animeren vanuit de huidige staat.
-  currentSlide.style.width = savedCurrent;
-  nextSlide.style.width = savedNext;
-
-  // Z-index direct toepassen (niet geanimeerd).
-  currentSlide.classList.remove("swiper-slide-active");
-  nextSlide.classList.add("swiper-slide-active");
-
-  // Haal de link-elementen op voor filter/opacity animatie.
-  const currentLink = currentSlide.querySelector<HTMLElement>("a");
-  const nextLink = nextSlide.querySelector<HTMLElement>("a");
-
-  // Alles synchroon animeren: wrapper translate + slide breedtes + visuele effecten.
-  const currentContent = currentSlide.querySelector<HTMLElement>("[data-slide-content]");
-  const nextContent = nextSlide.querySelector<HTMLElement>("[data-slide-content]");
-
-  gsap
-    .timeline({
-      defaults: { duration: 0.5, ease: "power2.inOut" },
-      onComplete() {
-        // Sync Swiper's interne staat na de GSAP animatie.
-        swiper.translate = endTranslate;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (swiper as any).updateSlides?.();
-        swiper.updateActiveIndex();
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (swiper as any).updateSlidesClasses?.();
-        isAnimating = false;
-      },
-    })
-    .to(wrapperEl, { x: endTranslate }, 0)
-    .to(currentSlide, { width: 320 }, 0)
-    .to(nextSlide, { width: 640 }, 0)
-    .to(currentLink, { filter: "blur(2px)", opacity: 0.65 }, 0)
-    .to(nextLink, { filter: "blur(0px)", opacity: 1 }, 0)
-    .to(currentContent, { opacity: 0, y: 8, duration: 0.2, ease: "power1.in" }, 0)
-    .fromTo(nextContent, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0.22);
-}
-
-export function sliderPrev() {
-  if (swiperGlobalRef.current) navigate(swiperGlobalRef.current, "prev");
-}
-
-export function sliderNext() {
-  if (swiperGlobalRef.current) navigate(swiperGlobalRef.current, "next");
-}
+const INACTIVE_W = 120;
+const GAP = 12;
+const CARD_H = 540;
 
 export default function ProjectenSliderSection() {
-  const swiperRef = useRef<SwiperType | null>(null);
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const activeRef = useRef(0);
+  const animatingRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  function getActiveW(): number {
+    const containerW = containerRef.current?.offsetWidth ?? window.innerWidth;
+    return Math.min(640, containerW - 48);
+  }
+
+  function getTargetX(idx: number): number {
+    const containerW = containerRef.current?.offsetWidth ?? window.innerWidth;
+    const activeW = getActiveW();
+    return containerW / 2 - activeW / 2 - idx * (INACTIVE_W + GAP);
+  }
+
+  function applyState(index: number, animated = false) {
+    const activeW = getActiveW();
+    cardRefs.current.forEach((card, i) => {
+      if (!card) return;
+      if (animated) {
+        gsap.set(card, { width: i === index ? activeW : INACTIVE_W });
+      } else {
+        gsap.set(card, { width: i === index ? activeW : INACTIVE_W });
+      }
+    });
+    contentRefs.current.forEach((content, i) => {
+      if (!content) return;
+      gsap.set(content, { opacity: i === index ? 1 : 0, y: 0 });
+    });
+    if (stripRef.current) {
+      gsap.set(stripRef.current, { x: getTargetX(index) });
+    }
+  }
+
+  useEffect(() => {
+    applyState(0);
+
+    const handleResize = () => {
+      gsap.killTweensOf([stripRef.current, ...cardRefs.current, ...contentRefs.current]);
+      animatingRef.current = false;
+      applyState(activeRef.current);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function animateTo(next: number) {
+    if (animatingRef.current || next === activeRef.current) return;
+    animatingRef.current = true;
+    const prev = activeRef.current;
+    activeRef.current = next;
+
+    const activeW = getActiveW();
+    const targetX = getTargetX(next);
+
+    gsap
+      .timeline({
+        defaults: { ease: "power2.inOut", duration: 0.6 },
+        onComplete() {
+          animatingRef.current = false;
+          setDisplayIndex(next);
+        },
+      })
+      .to(cardRefs.current[prev], { width: INACTIVE_W }, 0)
+      .to(cardRefs.current[next], { width: activeW }, 0)
+      .to(stripRef.current, { x: targetX }, 0)
+      .to(contentRefs.current[prev], { opacity: 0, duration: 0.2, ease: "power1.in" }, 0)
+      .fromTo(
+        contentRefs.current[next],
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+        0.28,
+      );
+  }
+
+  const goNext = () => animateTo((activeRef.current + 1) % projecten.length);
+  const goPrev = () => animateTo((activeRef.current - 1 + projecten.length) % projecten.length);
 
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white py-16 sm:py-24">
+      {/* ── Header ─────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <ScrollReveal>
-          <div className="flex items-end justify-between">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h2 className="font-display text-5xl font-bold tracking-tight text-dark sm:text-6xl">Onze projecten</h2>
+              <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl lg:text-6xl">
+                Recente projecten
+              </h2>
             </div>
-            <div className="hidden gap-3 sm:flex">
-              <button
-                onClick={() => swiperRef.current && navigate(swiperRef.current, "prev")}
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-dark text-white transition-all duration-200 hover:bg-dark-light active:scale-95"
-                aria-label="Vorige projecten">
-                <ArrowLeft size={18} />
-              </button>
-              <button
-                onClick={() => swiperRef.current && navigate(swiperRef.current, "next")}
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-brand text-white transition-all duration-200 hover:bg-brand-light active:scale-95"
-                aria-label="Volgende projecten">
-                <ArrowRight size={18} />
-              </button>
+
+            <div className="flex items-center gap-5 sm:pb-1">
+              <span className="hidden font-mono text-sm tabular-nums text-dark/35 sm:block">
+                {String(displayIndex + 1).padStart(2, "0")}
+                &thinsp;/&thinsp;
+                {String(projecten.length).padStart(2, "0")}
+              </span>
+              <div className="flex gap-3">
+                <button
+                  onClick={goPrev}
+                  className="flex h-12 w-12 items-center justify-center rounded-full bg-dark text-white transition-all duration-200 hover:opacity-80 active:scale-95"
+                  aria-label="Vorig project">
+                  <ArrowLeft size={18} />
+                </button>
+                <button
+                  onClick={goNext}
+                  className="flex h-12 w-12 items-center justify-center rounded-full bg-brand text-white transition-all duration-200 hover:opacity-90 active:scale-95"
+                  aria-label="Volgend project">
+                  <ArrowRight size={18} />
+                </button>
+              </div>
             </div>
           </div>
         </ScrollReveal>
       </div>
-      <div className="relative mt-16 overflow-hidden">
-        <Swiper
-          slidesPerView="auto"
-          centeredSlides
-          spaceBetween={32}
-          loop
-          initialSlide={projecten.length}
-          allowTouchMove={false}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-            swiperGlobalRef.current = swiper;
-            // Stel inline-breedtes in zodat GSAP altijd vanuit een bekende staat animeert.
-            swiper.slides.forEach((slide, i) => {
-              const el = slide as HTMLElement;
-              el.style.width = i === swiper.activeIndex ? "640px" : "320px";
-              const content = el.querySelector<HTMLElement>("[data-slide-content]");
-              if (content) gsap.set(content, { opacity: i === swiper.activeIndex ? 1 : 0, y: 0 });
-            });
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (swiper as any).updateSlides?.();
-            requestAnimationFrame(() => swiper.update());
-          }}
-          className="project-slider !overflow-visible !h-[500px]">
-          {loopedProjecten.map((project, index) => (
-            <SwiperSlide key={`${project.id}-${index}`}>
-              {({ isActive }) => (
+
+      {/* ── Slider ─────────────────────────────────────────────────────── */}
+      <div ref={containerRef} className="relative mt-10 overflow-hidden" style={{ height: CARD_H }}>
+        <div ref={stripRef} className="absolute top-0 left-0 flex" style={{ gap: GAP, willChange: "transform" }}>
+          {projecten.map((project, i) => (
+            <div
+              key={project.id}
+              ref={(el) => {
+                cardRefs.current[i] = el;
+              }}
+              className="relative shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-[#1a1a14]"
+              style={{ height: CARD_H }}
+              onClick={() => {
+                if (i !== activeRef.current) animateTo(i);
+              }}>
+              <img
+                src={project.image}
+                alt={project.title}
+                className="absolute inset-0 h-full w-full object-cover"
+                draggable={false}
+                loading="lazy"
+              />
+
+              {/* Persistent dim overlay */}
+              <div className="absolute inset-0 bg-dark/55" />
+
+              {/* Active content (fades in/out) */}
+              <div
+                ref={(el) => {
+                  contentRefs.current[i] = el;
+                }}
+                className="absolute inset-0">
+                {/* Rich gradient only on active */}
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent" />
+
                 <Link
                   to={`/projecten/${project.id}`}
-                  className={`${isActive ? "group" : ""} relative block h-[500px] w-full select-none overflow-hidden rounded-2xl`}
-                  style={{
-                    filter: isActive ? "blur(0px)" : "blur(2px)",
-                    opacity: isActive ? 1 : 0.65,
-                    cursor: isActive ? "pointer" : "default",
-                    pointerEvents: isActive ? "auto" : "none",
-                  }}>
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
-                    draggable={false}
-                  />
-                  <div data-slide-content className="absolute inset-0">
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-10">
-                      <h3 className="font-display text-4xl font-bold leading-tight text-white sm:text-5xl">
-                        {project.title}
-                      </h3>
-                      <p className="mt-3 text-base leading-relaxed text-gray-200 line-clamp-2">{project.description}</p>
-                      <span className="mt-5 inline-flex items-center gap-2 text-base font-semibold text-brand">
-                        Bekijk project
-                        <ArrowRight size={16} />
-                      </span>
-                    </div>
-                  </div>
+                  className="absolute inset-0 flex flex-col justify-end px-8 py-8 lg:px-10 lg:py-10"
+                  onClick={(e) => {
+                    if (i !== activeRef.current) e.preventDefault();
+                  }}
+                  tabIndex={i === displayIndex ? 0 : -1}>
+                  <span className="mb-2 font-mono text-xs font-semibold uppercase tracking-widest text-brand">
+                    {project.location}
+                  </span>
+                  <h3 className="font-display text-3xl font-bold leading-tight text-white lg:text-4xl">
+                    {project.title}
+                  </h3>
+                  <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60 line-clamp-2">
+                    {project.description}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand">
+                    Bekijk project
+                    <ArrowRight size={14} />
+                  </span>
                 </Link>
-              )}
-            </SwiperSlide>
+              </div>
+            </div>
           ))}
-        </Swiper>
+        </div>
       </div>
+
+      {/* ── CTA ────────────────────────────────────────────────────────── */}
       <ScrollReveal>
-        <div className="mt-14 text-center">
+        <div className="mt-12 text-center">
           <CTAButton to="/projecten" variant="secondary">
             Alle projecten bekijken
           </CTAButton>
