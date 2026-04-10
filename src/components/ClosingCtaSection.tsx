@@ -1,35 +1,41 @@
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import ScrollReveal from "./ScrollReveal";
-import CTAButton from "./CTAButton";
 
 export default function ClosingCtaSection() {
   return (
-    <section className="relative py-32">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/actie-foto-6.webp')",
-        }}
-      />
-      <div className="absolute inset-0 bg-dark/70" />
-      <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
-        <ScrollReveal>
-          <h2 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Klaar om jouw bouwplannen
-            <br />
-            te realiseren?
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-300">
-            Neem vrijblijvend contact op voor een kennismakingsgesprek op locatie. We bespreken jouw wensen en kijken
-            samen naar de mogelijkheden.
-          </p>
-          <div className="mt-8">
-            <CTAButton to="/contact" size="md">
-              Neem contact op
-              <ArrowRight className="ml-2" size={16} />
-            </CTAButton>
-          </div>
-        </ScrollReveal>
+    <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+      <div className="overflow-hidden rounded-3xl bg-brand sm:rounded-[2rem]">
+        <div className="mx-auto max-w-4xl px-8 py-20 text-center lg:px-12 lg:py-28">
+          <ScrollReveal>
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-white backdrop-blur-sm">
+              Vrijblijvend kennismakingsgesprek
+            </span>
+            <h2 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Jouw bouwproject begint
+              <br />
+              met <span className="text-white/60">één gesprek</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/70">
+              We komen bij jou langs, bekijken de situatie op locatie en denken
+              vrijblijvend met je mee. Van kleine verbouwing tot complete aanbouw
+              — altijd één vast aanspreekpunt.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-brand transition-all duration-200 hover:bg-white/90 active:scale-[0.97]">
+                Plan een locatiebezoek
+                <ArrowRight size={16} />
+              </Link>
+              <Link
+                to="/projecten"
+                className="inline-flex items-center gap-2 rounded-full border border-white/30 px-7 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-white/10 active:scale-[0.97]">
+                Bekijk projecten
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
       </div>
     </section>
   );
