@@ -1,4 +1,3 @@
-import Badge from "../components/Badge";
 import ClosingCtaSection from "../components/ClosingCtaSection";
 import PageHero from "../components/PageHero";
 import ScrollReveal from "../components/ScrollReveal";
@@ -18,7 +17,7 @@ const diensten = [
   },
   {
     title: "Interne verbouwing",
-    text: "Een andere indeling, een extra kamer of een complete renovatie van je woning van binnen — Oosterik Bouw verzorgt interne verbouwingen van begin tot eind. Wij coördineren alle betrokken vakspecialisten, zodat jij één aanspreekpunt hebt en het project soepel verloopt.",
+    text: "Een andere indeling, een extra kamer of een complete renovatie van je woning van binnen. Oosterik Bouw verzorgt interne verbouwingen van begin tot eind. Wij coördineren alle betrokken vakspecialisten, zodat jij één aanspreekpunt hebt en het project soepel verloopt.",
     items: [
       "Muren verzetten of verwijderen",
       "Extra kamers creëren",
@@ -30,7 +29,7 @@ const diensten = [
   },
   {
     title: "Bijgebouwen & tuinhuizen",
-    text: "Van een luxe tuinhuis tot een praktische werkplaats of schuur — Oosterik Bouw bouwt bijgebouwen die écht passen bij jouw wensen en bij de stijl van jouw tuin en woning. Geen standaard bouwpakketten, maar maatwerk dat opvalt.",
+    text: "Van een luxe tuinhuis tot een praktische werkplaats of schuur: Oosterik Bouw bouwt bijgebouwen die écht passen bij jouw wensen en bij de stijl van jouw tuin en woning. Geen standaard bouwpakketten, maar maatwerk dat opvalt.",
     items: [
       "Luxe tuinhuizen op maat (geen prefab)",
       "Werkplaatsen en hobbyruimtes",
@@ -54,7 +53,7 @@ const diensten = [
   },
   {
     title: "Badkamer & toilet renovatie",
-    text: "Een verouderde badkamer of toilet kan een grote impact hebben op het wooncomfort. Oosterik Bouw coördineert de volledige renovatie: van slopen en tegelwerk tot sanitairinstallatie en afwerking — in samenwerking met gespecialiseerde vaklieden uit ons netwerk.",
+    text: "Een verouderde badkamer of toilet kan een grote impact hebben op het wooncomfort. Oosterik Bouw coördineert de volledige renovatie: van slopen en tegelwerk tot sanitairinstallatie en afwerking, in samenwerking met gespecialiseerde vaklieden uit ons netwerk.",
     items: [
       "Complete badkamer renovatie",
       "Toilet vernieuwen",
@@ -78,7 +77,7 @@ const diensten = [
   },
   {
     title: "Renovatie & woningonderhoud",
-    text: "Is je woning toe aan een opfrisbeurt of grondige renovatie? Oosterik Bouw pakt renovatieprojecten integraal aan — van gevel tot interieur — zodat je woning er weer jaren tegenaan kan.",
+    text: "Is je woning toe aan een opfrisbeurt of grondige renovatie? Oosterik Bouw pakt renovatieprojecten integraal aan, van gevel tot interieur, zodat je woning er weer jaren tegenaan kan.",
     items: [
       "Totaalrenovatie van woningen",
       "Gevelrenovatie",
@@ -94,9 +93,8 @@ export default function Diensten() {
   return (
     <>
       <PageHero
-        badge="Diensten"
         title="Onze diensten"
-        subtitle="Van aanbouw tot verduurzaming — Oosterik Bouw regelt het van A tot Z, met één vast aanspreekpunt."
+        subtitle="Van aanbouw tot verduurzaming: Oosterik Bouw regelt het van A tot Z, met één vast aanspreekpunt."
       />
 
       <section className="bg-white py-16 sm:py-24">
@@ -106,11 +104,8 @@ export default function Diensten() {
               <ScrollReveal key={dienst.title}>
                 <div
                   className={`grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-2 ${
-                    index < diensten.length - 1
-                      ? "border-b border-dark/[0.06]"
-                      : ""
-                  }`}
-                >
+                    index < diensten.length - 1 ? "border-b border-dark/[0.06]" : ""
+                  }`}>
                   {/* Text column */}
                   <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                     <span className="mb-3 block font-mono text-xs font-semibold uppercase tracking-widest text-brand">
@@ -119,9 +114,7 @@ export default function Diensten() {
                     <h2 className="font-display text-3xl font-bold leading-tight text-dark sm:text-4xl">
                       {dienst.title}
                     </h2>
-                    <p className="mt-6 leading-relaxed text-dark-lighter">
-                      {dienst.text}
-                    </p>
+                    <p className="mt-6 leading-relaxed text-dark-lighter">{dienst.text}</p>
                     <ul className="mt-8 space-y-3">
                       {dienst.items.map((item) => (
                         <li key={item} className="flex items-start gap-3 text-sm">
@@ -158,7 +151,7 @@ export default function Diensten() {
         </div>
       </section>
 
-      <ClosingCtaSection />
+      <ClosingCtaSection variant="dark" />
     </>
   );
 }

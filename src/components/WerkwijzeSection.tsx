@@ -1,9 +1,7 @@
-import { useEffect, useRef } from "react";
-import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
 import gsap from "gsap";
-import Badge from "./Badge";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
+import Badge from "./Badge";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,7 +16,7 @@ const stappen = [
     step: "02",
     title: "Plannen uitwerken & offerte",
     description:
-      "We werken je plannen verder uit — inclusief schetstekeningen waar nodig. Je ontvangt een heldere offerte zonder verborgen kosten of verrassingen.",
+      "We werken je plannen verder uit, inclusief schetstekeningen waar nodig. Je ontvangt een heldere offerte zonder verborgen kosten of verrassingen.",
   },
   {
     step: "03",
@@ -30,7 +28,7 @@ const stappen = [
     step: "04",
     title: "Uitvoering",
     description:
-      "De werkzaamheden starten. Jij hebt één vast aanspreekpunt — voor vragen, aanpassingen en beslissingen. Snel schakelen is iets waar we goed in zijn.",
+      "De werkzaamheden starten. Jij hebt één vast aanspreekpunt voor vragen, aanpassingen en beslissingen. Snel schakelen is iets waar we goed in zijn.",
   },
   {
     step: "05",
@@ -114,7 +112,7 @@ export default function WerkwijzeSection() {
                   gsap.fromTo(
                     numberRef.current,
                     { opacity: 0, y: dir * 30 },
-                    { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }
+                    { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" },
                   );
                 },
               });
@@ -137,40 +135,35 @@ export default function WerkwijzeSection() {
 
   return (
     <section ref={sectionRef} className="w-full bg-[#2c2c26]">
-
       {/* ── Section header ─────────────────────────────────────────────── */}
       <div className="flex min-h-[55vh] flex-col justify-center px-8 pb-12 pt-24 lg:px-16 xl:px-24">
-        <Badge variant="dark" className="mb-6">Werkwijze</Badge>
+        <Badge variant="dark" className="mb-6">
+          Werkwijze
+        </Badge>
         <h2 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-          Van plan tot{" "}
-          <span className="text-brand">oplevering</span>
+          Van plan tot <span className="text-brand">oplevering</span>
         </h2>
         <p className="mt-6 max-w-lg text-base leading-relaxed text-white/45">
-          Stap voor stap, met duidelijke communicatie en geen verrassingen. Zo
-          werkt Oosterik Bouw — van het eerste gesprek tot de sleuteloverdracht.
+          Stap voor stap, met duidelijke communicatie en geen verrassingen. Zo werkt Oosterik Bouw, van het eerste
+          gesprek tot de sleuteloverdracht.
         </p>
       </div>
 
       {/* ── Mobile: stacked steps ──────────────────────────────────────── */}
       <div className="md:hidden">
         {stappen.map((stap, i) => (
-          <div
-            key={stap.step}
-            className="relative overflow-hidden border-t border-white/[0.07] px-8 py-12">
+          <div key={stap.step} className="relative overflow-hidden border-t border-white/[0.07] px-8 py-12">
             {/* Decorative number */}
-            <span className="pointer-events-none absolute -right-4 -top-4 select-none font-display font-black leading-none text-brand/10"
+            <span
+              className="pointer-events-none absolute -right-4 -top-4 select-none font-display font-black leading-none text-brand/10"
               style={{ fontSize: "clamp(6rem, 30vw, 10rem)" }}>
               {stap.step}
             </span>
             <span className="mb-4 block font-mono text-xs font-semibold uppercase tracking-widest text-brand">
               Stap {stap.step}
             </span>
-            <h3 className="font-display text-3xl font-bold leading-tight text-white">
-              {stap.title}
-            </h3>
-            <p className="mt-4 text-base leading-relaxed text-white/45">
-              {stap.description}
-            </p>
+            <h3 className="font-display text-3xl font-bold leading-tight text-white">{stap.title}</h3>
+            <p className="mt-4 text-base leading-relaxed text-white/45">{stap.description}</p>
           </div>
         ))}
       </div>
@@ -178,7 +171,6 @@ export default function WerkwijzeSection() {
       {/* ── Desktop: pinned sticky scroll ──────────────────────────────── */}
       <div ref={pinTargetRef} style={{ height: "100vh" }} className="hidden md:block">
         <div className="flex h-full">
-
           {/* Left: scrolling step content */}
           <div className="relative h-full w-[55%] overflow-hidden border-r border-white/[0.07]">
             <div ref={stepsListRef}>
@@ -190,12 +182,8 @@ export default function WerkwijzeSection() {
                   <span className="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-brand">
                     Stap {stap.step}
                   </span>
-                  <h3 className="font-display text-4xl font-bold leading-tight text-white lg:text-5xl">
-                    {stap.title}
-                  </h3>
-                  <p className="mt-6 max-w-md text-lg leading-relaxed text-white/45">
-                    {stap.description}
-                  </p>
+                  <h3 className="font-display text-4xl font-bold leading-tight text-white lg:text-5xl">{stap.title}</h3>
+                  <p className="mt-6 max-w-md text-lg leading-relaxed text-white/45">{stap.description}</p>
                   {/* Progress dots */}
                   <div className="mt-10 flex items-center gap-2">
                     {stappen.map((_, di) => (
@@ -221,21 +209,6 @@ export default function WerkwijzeSection() {
               01
             </span>
           </div>
-        </div>
-      </div>
-
-      {/* ── Footer strip ───────────────────────────────────────────────── */}
-      <div className="border-t border-white/[0.06] px-8 py-12 lg:px-16">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-white/35">
-            Benieuwd wat wij voor jou kunnen betekenen?
-          </p>
-          <Link
-            to="/contact"
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand-light active:scale-[0.97]">
-            Plan een locatiebezoek
-            <ArrowRight size={16} />
-          </Link>
         </div>
       </div>
     </section>

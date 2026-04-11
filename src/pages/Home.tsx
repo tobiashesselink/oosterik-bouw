@@ -13,7 +13,7 @@ export default function Home() {
       <DienstenSection />
       <ProjectenSliderSection />
       <WerkwijzeSection />
-      <ClosingCtaSection />
+      <ClosingCtaSection variant="light" />
     </>
   );
 }

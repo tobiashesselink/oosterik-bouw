@@ -1,17 +1,10 @@
+import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import PageHero from "../components/PageHero";
-import ClosingCtaSection from "../components/ClosingCtaSection";
 import ScrollReveal from "../components/ScrollReveal";
 
-const categories = [
-  "Alle projecten",
-  "Nieuwbouw",
-  "Verbouw",
-  "Renovatie & onderhoud",
-  "Verduurzaming",
-];
+const categories = ["Alle projecten", "Nieuwbouw", "Verbouw", "Renovatie & onderhoud", "Verduurzaming"];
 
 interface Project {
   id: string;
@@ -24,42 +17,42 @@ interface Project {
 const projects: Project[] = [
   {
     id: "aanbouw-woonkamer-apeldoorn",
-    title: "Aanbouw woonkamer — Apeldoorn",
+    title: "Aanbouw woonkamer in Apeldoorn",
     category: "Verbouw",
     description: "Ruime aanbouw aan de achterzijde van de woning met grote raampartijen voor extra lichtinval.",
     image: "/uitbouw.webp",
   },
   {
     id: "badkamer-renovatie-doetinchem",
-    title: "Badkamer renovatie — Doetinchem",
+    title: "Badkamer renovatie in Doetinchem",
     category: "Renovatie & onderhoud",
     description: "Complete renovatie van een verouderde badkamer naar moderne inloopdouche met maatwerk tegelwerk.",
     image: "/Tegelssnijden.webp",
   },
   {
     id: "tuinhuis-maatwerk-zutphen",
-    title: "Tuinhuis op maat — Zutphen",
+    title: "Tuinhuis op maat in Zutphen",
     category: "Verbouw",
     description: "Luxe tuinhuis met overkapping, volledig op maat gebouwd als werkplaats en opslag.",
     image: "/tuinhuis-kempers-1.webp",
   },
   {
     id: "dakkapel-arnhem",
-    title: "Dakkapel plaatsen — Arnhem",
+    title: "Dakkapel plaatsen in Arnhem",
     category: "Verbouw",
     description: "Prefab dakkapel met hoogwaardige afwerking, inclusief vergunningsaanvraag en schilderwerk.",
     image: "/uitbouw e'de.webp",
   },
   {
     id: "isolatie-dak-ede",
-    title: "Dakisolatie woning — Ede",
+    title: "Dakisolatie woning in Ede",
     category: "Verduurzaming",
     description: "Volledige dakisolatie met nieuwe afwerking aan de binnenzijde voor een energiezuiniger huis.",
     image: "/Constuctie douglas.webp",
   },
   {
     id: "kozijnen-vervangen-ede",
-    title: "Kozijnen vervangen met HR++ glas — Ede",
+    title: "Kozijnen vervangen met HR++ glas in Ede",
     category: "Verduurzaming",
     description: "Alle kozijnen vervangen door onderhoudsarme kunststof kozijnen met HR++ isolatieglas.",
     image: "/overkapping.webp",
@@ -70,20 +63,17 @@ export default function Projecten() {
   const [activeCategory, setActiveCategory] = useState("Alle projecten");
 
   const filteredProjects =
-    activeCategory === "Alle projecten"
-      ? projects
-      : projects.filter((p) => p.category === activeCategory);
+    activeCategory === "Alle projecten" ? projects : projects.filter((p) => p.category === activeCategory);
 
   return (
     <>
       <PageHero
-        badge="Portfolio"
         title="Onze projecten"
-        subtitle="Bekijk een selectie van gerealiseerde projecten — elk uitgevoerd met vakmanschap en persoonlijke betrokkenheid."
+        subtitle="Bekijk een selectie van gerealiseerde projecten, elk uitgevoerd met vakmanschap en persoonlijke betrokkenheid."
       />
 
       {/* Sticky filter bar */}
-      <section className="sticky top-[65px] z-40 border-b border-dark/[0.06] bg-white/95 backdrop-blur-md">
+      <section className="sticky top-0 z-40 border-b border-dark/[0.06] bg-white/95 backdrop-blur-md">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex gap-2 overflow-x-auto py-4 scrollbar-hide">
             {categories.map((cat) => (
@@ -94,8 +84,7 @@ export default function Projecten() {
                   activeCategory === cat
                     ? "bg-brand text-white"
                     : "bg-[#f3f3f3] text-dark/60 hover:bg-dark/[0.08] hover:text-dark"
-                }`}
-              >
+                }`}>
                 {cat}
               </button>
             ))}
@@ -108,9 +97,7 @@ export default function Projecten() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           {filteredProjects.length === 0 ? (
             <div className="py-20 text-center">
-              <p className="text-lg text-dark-lighter">
-                Geen projecten gevonden in deze categorie.
-              </p>
+              <p className="text-lg text-dark-lighter">Geen projecten gevonden in deze categorie.</p>
             </div>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -118,8 +105,7 @@ export default function Projecten() {
                 <ScrollReveal key={project.id} delay={i * 80}>
                   <Link
                     to={`/projecten/${project.id}`}
-                    className="group relative block h-[380px] overflow-hidden rounded-2xl bg-[#0f0f0a]"
-                  >
+                    className="group relative block h-[380px] overflow-hidden rounded-2xl bg-[#0f0f0a]">
                     <img
                       src={project.image}
                       alt={project.title}
@@ -132,12 +118,8 @@ export default function Projecten() {
                       <span className="mb-2 font-mono text-xs font-semibold uppercase tracking-widest text-brand">
                         {project.category}
                       </span>
-                      <h3 className="font-display text-2xl font-bold leading-tight text-white">
-                        {project.title}
-                      </h3>
-                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/60">
-                        {project.description}
-                      </p>
+                      <h3 className="font-display text-2xl font-bold leading-tight text-white">{project.title}</h3>
+                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/60">{project.description}</p>
                       <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand">
                         Bekijk project <ArrowRight size={14} />
                       </span>
@@ -149,8 +131,6 @@ export default function Projecten() {
           )}
         </div>
       </section>
-
-      <ClosingCtaSection />
     </>
   );
 }

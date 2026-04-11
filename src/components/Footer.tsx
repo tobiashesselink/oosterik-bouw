@@ -27,16 +27,16 @@ export default function Footer() {
           {/* Logo + description */}
           <div>
             <Link to="/" className="inline-block">
-              <img src="/logo-liggend-transparant.png" alt="Oosterik Bouw" className="h-12 w-auto object-contain" />
+              <img src="/logo-inverted-white.png" alt="Oosterik Bouw" className="h-12 w-auto object-contain" />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-400">
-              Bouwen naar jouw wens — van plan tot oplevering. Persoonlijk, betrouwbaar en met oog voor kwaliteit.
+              Bouwen naar jouw wens, van plan tot oplevering. Persoonlijk, betrouwbaar en met oog voor kwaliteit.
             </p>
           </div>
 
           {/* Pagina's */}
           <div>
-            <h3 className="mb-5 text-xs font-semibold uppercase tracking-wider text-gray-500">Pagina&apos;s</h3>
+            <h3 className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-white/40">Pagina&apos;s</h3>
             <ul className="space-y-3">
               {footerLinks.map((link) => (
                 <li key={link.to}>
@@ -50,7 +50,7 @@ export default function Footer() {
 
           {/* Diensten */}
           <div>
-            <h3 className="mb-5 text-xs font-semibold uppercase tracking-wider text-gray-500">Diensten</h3>
+            <h3 className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-white/40">Diensten</h3>
             <ul className="space-y-3">
               {dienstenLinks.map((link, i) => (
                 <li key={i}>
@@ -64,7 +64,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="mb-5 text-xs font-semibold uppercase tracking-wider text-gray-500">Contact</h3>
+            <h3 className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-white/40">Contact</h3>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <Phone size={16} className="mt-0.5 shrink-0 text-brand" />

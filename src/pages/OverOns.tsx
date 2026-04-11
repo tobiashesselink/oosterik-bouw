@@ -1,4 +1,4 @@
-import { Shield, RefreshCw, Lightbulb, Award, Heart } from "lucide-react";
+import { Award, Heart, Lightbulb, RefreshCw, Shield } from "lucide-react";
 import Badge from "../components/Badge";
 import ClosingCtaSection from "../components/ClosingCtaSection";
 import PageHero from "../components/PageHero";
@@ -28,14 +28,14 @@ const kernwaarden = [
   {
     icon: Heart,
     title: "Persoonlijk",
-    description: "Je werkt altijd met dezelfde persoon — van plan tot oplevering.",
+    description: "Je werkt altijd met dezelfde persoon, van plan tot oplevering.",
   },
 ];
 
 export default function OverOns() {
   return (
     <>
-      <PageHero badge="Over ons" title="Wie is Oosterik Bouw?" />
+      <PageHero title="Wie is Oosterik Bouw?" />
 
       {/* Intro section */}
       <section className="bg-white py-16 sm:py-24">
@@ -43,21 +43,21 @@ export default function OverOns() {
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <ScrollReveal>
               <div>
-                <Badge variant="light" className="mb-6">Over ons</Badge>
+                <Badge variant="light" className="mb-6">
+                  Over ons
+                </Badge>
                 <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
                   Persoonlijk betrokken bij jouw project
                 </h2>
                 <p className="mt-6 text-lg leading-relaxed text-dark-lighter">
-                  Oosterik Bouw is een jong, allround bouwbedrijf dat gespecialiseerd
-                  is in kleine tot middelgrote bouwprojecten voor particulieren, kleine
-                  ondernemers en bedrijven. Met jarenlange ervaring in de bouw en een
-                  brede vakkennis pakt Oosterik Bouw elk project professioneel aan — van
-                  de eerste tekening tot de laatste nagel.
+                  Oosterik Bouw is een jong, allround bouwbedrijf dat gespecialiseerd is in kleine tot middelgrote
+                  bouwprojecten voor particulieren, kleine ondernemers en bedrijven. Met jarenlange ervaring in de bouw
+                  en een brede vakkennis pakt Oosterik Bouw elk project professioneel aan, van de eerste tekening tot de
+                  laatste nagel.
                 </p>
                 <p className="mt-5 text-lg leading-relaxed text-dark-lighter">
-                  Bouwen naar de wens van de klant: dat is de kern van alles wat we doen.
-                  Goede communicatie, een transparant proces en een hoogwaardig
-                  eindresultaat staan centraal in elke samenwerking.
+                  Bouwen naar de wens van de klant: dat is de kern van alles wat we doen. Goede communicatie, een
+                  transparant proces en een hoogwaardig eindresultaat staan centraal in elke samenwerking.
                 </p>
               </div>
             </ScrollReveal>
@@ -79,7 +79,9 @@ export default function OverOns() {
             <div className="rounded-3xl bg-[#f3f3f3] px-6 py-12 sm:p-16">
               <ScrollReveal>
                 <div className="mb-10 text-center">
-                  <Badge variant="light" className="mb-4">Kernwaarden</Badge>
+                  <Badge variant="light" className="mb-4">
+                    Kernwaarden
+                  </Badge>
                   <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
                     Waar Oosterik Bouw voor staat
                   </h2>
@@ -93,12 +95,8 @@ export default function OverOns() {
                       <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-brand text-white">
                         <waarde.icon size={22} />
                       </div>
-                      <h3 className="font-display text-xl font-bold text-dark mb-3">
-                        {waarde.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-dark-lighter">
-                        {waarde.description}
-                      </p>
+                      <h3 className="font-display text-xl font-bold text-dark mb-3">{waarde.title}</h3>
+                      <p className="text-sm leading-relaxed text-dark-lighter">{waarde.description}</p>
                     </div>
                   </ScrollReveal>
                 ))}
@@ -114,17 +112,17 @@ export default function OverOns() {
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <ScrollReveal>
               <div>
-                <Badge variant="light" className="mb-6">Doelgroep</Badge>
+                <Badge variant="light" className="mb-6">
+                  Doelgroep
+                </Badge>
                 <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
                   Voor wie werkt Oosterik Bouw?
                 </h2>
                 <p className="mt-6 text-lg leading-relaxed text-dark-lighter">
-                  Oosterik Bouw werkt voor particulieren die hun woning willen
-                  uitbreiden, verbouwen of verduurzamen. Maar ook kleine ondernemers en
-                  bedrijven met een bouwvraag kunnen bij ons terecht. Of het nu gaat om
-                  een bijgebouw op het bedrijfsterrein, een verbouwing van een
-                  kantoorruimte of renovatiewerkzaamheden — Oosterik Bouw denkt mee en
-                  regelt het.
+                  Oosterik Bouw werkt voor particulieren die hun woning willen uitbreiden, verbouwen of verduurzamen.
+                  Maar ook kleine ondernemers en bedrijven met een bouwvraag kunnen bij ons terecht. Of het nu gaat om
+                  een bijgebouw op het bedrijfsterrein, een verbouwing van een kantoorruimte of renovatiewerkzaamheden.
+                  Oosterik Bouw denkt mee en regelt het.
                 </p>
               </div>
             </ScrollReveal>
@@ -138,13 +136,8 @@ export default function OverOns() {
                     { value: "10+", label: "Jaar ervaring" },
                     { value: "A-Z", label: "Volledige ontzorging" },
                   ].map((stat) => (
-                    <div
-                      key={stat.label}
-                      className="rounded-2xl bg-white/5 p-6 text-center"
-                    >
-                      <p className="font-display text-4xl font-bold text-brand">
-                        {stat.value}
-                      </p>
+                    <div key={stat.label} className="rounded-2xl bg-white/5 p-6 text-center">
+                      <p className="font-display text-4xl font-bold text-brand">{stat.value}</p>
                       <p className="mt-1 text-sm text-white/60">{stat.label}</p>
                     </div>
                   ))}
@@ -161,10 +154,9 @@ export default function OverOns() {
           <ScrollReveal>
             <div className="rounded-[2rem] bg-[#2c2c26] p-10 sm:p-16">
               <blockquote className="text-xl leading-relaxed text-white/70 sm:text-2xl">
-                "Als u besluit met Oosterik Bouw uw plannen tot uitvoering te brengen,
-                staan wij paraat met onze jarenlange ervaring. De wens van de klant staat
-                centraal — goede communicatie rechtstreeks met de opdrachtgever vinden wij
-                daarbij erg belangrijk."
+                "Als u besluit met Oosterik Bouw uw plannen tot uitvoering te brengen, staan wij paraat met onze
+                jarenlange ervaring. De wens van de klant staat centraal. Goede communicatie rechtstreeks met de
+                opdrachtgever vinden wij daarbij erg belangrijk."
               </blockquote>
             </div>
           </ScrollReveal>
