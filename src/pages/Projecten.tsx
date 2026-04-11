@@ -142,15 +142,15 @@ export default function Projecten() {
         subtitle="Bekijk een selectie van gerealiseerde projecten, elk uitgevoerd met vakmanschap en persoonlijke betrokkenheid."
       />
 
-      {/* Sticky filter bar */}
-      <section className="sticky top-0 z-40 border-b border-dark/[0.06] bg-white/95 backdrop-blur-md">
+      {/* Filter bar */}
+      <section className="bg-white pt-10 sm:pt-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex gap-2 overflow-x-auto py-4 scrollbar-hide">
+          <div className="flex justify-center gap-2 overflow-x-auto scrollbar-hide">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${
+                className={`shrink-0 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${
                   activeCategory === cat
                     ? "bg-brand text-white"
                     : "bg-[#f3f3f3] text-dark/60 hover:bg-dark/[0.08] hover:text-dark"
@@ -163,7 +163,7 @@ export default function Projecten() {
       </section>
 
       {/* Projects grid */}
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-white pt-10 pb-16 sm:pt-12 sm:pb-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           {filteredProjects.length === 0 ? (
             <div className="py-20 text-center">

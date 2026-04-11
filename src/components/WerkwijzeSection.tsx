@@ -1,8 +1,6 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
-import Badge from "./Badge";
-
 gsap.registerPlugin(ScrollTrigger);
 
 const stappen = [
@@ -135,23 +133,9 @@ export default function WerkwijzeSection() {
 
   return (
     <section ref={sectionRef} className="w-full bg-[#2c2c26]">
-      {/* ── Section header ─────────────────────────────────────────────── */}
-      <div className="flex min-h-[55vh] flex-col justify-center px-8 pb-12 pt-24 lg:px-16 xl:px-24">
-        <Badge variant="dark" className="mb-6">
-          Werkwijze
-        </Badge>
-        <h2 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-          Van plan tot <span className="text-brand">oplevering</span>
-        </h2>
-        <p className="mt-6 max-w-lg text-base leading-relaxed text-white/45">
-          Stap voor stap, met duidelijke communicatie en geen verrassingen. Zo werkt Oosterik Bouw, van het eerste
-          gesprek tot de sleuteloverdracht.
-        </p>
-      </div>
-
       {/* ── Mobile: stacked steps ──────────────────────────────────────── */}
       <div className="md:hidden">
-        {stappen.map((stap, i) => (
+        {stappen.map((stap) => (
           <div key={stap.step} className="relative overflow-hidden border-t border-white/[0.07] px-8 py-12">
             {/* Decorative number */}
             <span
