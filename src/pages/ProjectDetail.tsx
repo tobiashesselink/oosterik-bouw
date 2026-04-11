@@ -1,7 +1,8 @@
-import { ArrowLeft, Briefcase, Calendar, MapPin } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Briefcase, Calendar, MapPin, Tag } from "lucide-react";
+import { useParams } from "react-router-dom";
 import CTAButton from "../components/CTAButton";
 import ClosingCtaSection from "../components/ClosingCtaSection";
+import Header from "../components/Header";
 import ScrollReveal from "../components/ScrollReveal";
 
 const projectData: Record<
@@ -101,59 +102,93 @@ export default function ProjectDetail() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative h-[60vh] min-h-[460px]">
-        <img src={project.image} alt={project.title} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 px-6 pb-12 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <Link
-              to="/projecten"
-              className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-white/70 transition-colors hover:text-white">
-              <ArrowLeft size={15} /> Alle projecten
-            </Link>
-            <span className="mb-3 block font-mono text-xs font-semibold uppercase tracking-widest text-brand">
-              {project.category}
-            </span>
-            <h1 className="font-display text-4xl font-bold text-white sm:text-5xl">{project.title}</h1>
+      {/* Hero — matches HeroSection style */}
+      <section className="relative bg-white px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+        <div className="overflow-hidden rounded-3xl bg-dark sm:rounded-[2rem]">
+          <div className="relative overflow-hidden">
+            {/* Background image — dampened like HeroSection */}
+            <div
+              className="absolute inset-0 opacity-20"
+              style={{
+                backgroundImage: `url('${project.image}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            />
+            {/* Dark gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-dark/70 via-dark/20 to-transparent" />
+            {/* Top gradient for nav readability */}
+            <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-dark/75 to-transparent pointer-events-none" />
+            {/* Bottom gradient for title readability */}
+            <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-dark to-transparent pointer-events-none" />
+            {/* Orange glow — bottom right */}
+            <div
+              className="absolute right-0 bottom-0 pointer-events-none"
+              style={{
+                width: "70%",
+                height: "100%",
+                background: "radial-gradient(circle at 100% 100%, rgba(229, 120, 44, 0.25) 0%, rgba(229, 120, 44, 0.08) 35%, transparent 70%)",
+              }}
+            />
+
+            {/* Header inside container */}
+            <div className="relative mx-auto max-w-7xl px-6 pt-6">
+              <Header inverted />
+            </div>
+
+            {/* Hero content — bottom aligned */}
+            <div className="relative flex min-h-[45vh] flex-col justify-end pb-12 pt-28 lg:pb-16">
+              <div className="mx-auto max-w-7xl w-full px-6 lg:px-8">
+                <h1 className="font-display text-4xl font-bold text-white sm:text-5xl">{project.title}</h1>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Content section */}
+      {/* Content */}
       <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-3">
             {/* Meta sidebar */}
             <div className="lg:order-2">
-              <div className="sticky top-24 rounded-[2rem] bg-[#2c2c26] p-8">
-                <h3 className="mb-6 font-display text-lg font-semibold text-white">Projectinformatie</h3>
+              <div className="sticky top-24 rounded-[2rem] bg-[#f3f3f3] p-8">
+                <h3 className="mb-6 font-display text-lg font-semibold text-dark">Projectinformatie</h3>
                 <dl className="space-y-5">
                   <div className="flex items-start gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-brand">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dark/[0.07] text-brand">
+                      <Tag size={15} />
+                    </div>
+                    <div>
+                      <dt className="text-xs font-medium text-dark/60">Categorie</dt>
+                      <dd className="mt-0.5 text-sm font-semibold text-dark">{project.category}</dd>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dark/[0.07] text-brand">
                       <Briefcase size={15} />
                     </div>
                     <div>
-                      <dt className="text-xs text-white/40">Type project</dt>
-                      <dd className="mt-0.5 text-sm font-semibold text-white">{project.type}</dd>
+                      <dt className="text-xs font-medium text-dark/60">Type project</dt>
+                      <dd className="mt-0.5 text-sm font-semibold text-dark">{project.type}</dd>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-brand">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dark/[0.07] text-brand">
                       <MapPin size={15} />
                     </div>
                     <div>
-                      <dt className="text-xs text-white/40">Locatie</dt>
-                      <dd className="mt-0.5 text-sm font-semibold text-white">{project.location}</dd>
+                      <dt className="text-xs font-medium text-dark/60">Locatie</dt>
+                      <dd className="mt-0.5 text-sm font-semibold text-dark">{project.location}</dd>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-brand">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dark/[0.07] text-brand">
                       <Calendar size={15} />
                     </div>
                     <div>
-                      <dt className="text-xs text-white/40">Jaar</dt>
-                      <dd className="mt-0.5 text-sm font-semibold text-white">{project.year}</dd>
+                      <dt className="text-xs font-medium text-dark/60">Jaar</dt>
+                      <dd className="mt-0.5 text-sm font-semibold text-dark">{project.year}</dd>
                     </div>
                   </div>
                 </dl>
@@ -209,7 +244,7 @@ export default function ProjectDetail() {
         </div>
       </section>
 
-      <ClosingCtaSection />
+      <ClosingCtaSection variant="light" />
     </>
   );
 }

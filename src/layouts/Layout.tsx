@@ -8,7 +8,8 @@ const SELF_HEADED_ROUTES = ["/", "/diensten", "/projecten", "/contact", "/over-o
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
-  const showHeader = !SELF_HEADED_ROUTES.includes(pathname);
+  const showHeader =
+    !SELF_HEADED_ROUTES.includes(pathname) && !pathname.startsWith("/projecten/");
 
   return (
     <div className="flex min-h-screen flex-col">

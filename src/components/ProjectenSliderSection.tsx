@@ -361,7 +361,7 @@ export default function ProjectenSliderSection() {
                 }}
                 className="absolute inset-0"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/40 to-transparent" />
                 <Link
                   to={`/projecten/${project.id}`}
                   className="absolute inset-0 flex flex-col justify-end px-8 py-8 lg:px-10 lg:py-10"
@@ -370,9 +370,6 @@ export default function ProjectenSliderSection() {
                   }}
                   tabIndex={i === displayIndex ? 0 : -1}
                 >
-                  <span className="mb-2 font-mono text-xs font-semibold uppercase tracking-widest text-brand">
-                    {project.location}
-                  </span>
                   <h3 className="font-display text-3xl font-bold leading-tight text-white lg:text-4xl">
                     {project.title}
                   </h3>

@@ -1,6 +1,8 @@
-import { ArrowRight } from "lucide-react";
+import gsap from "gsap";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ArrowCircle from "../components/ArrowCircle";
 import PageHero from "../components/PageHero";
 import ScrollReveal from "../components/ScrollReveal";
 
@@ -59,6 +61,74 @@ const projects: Project[] = [
   },
 ];
 
+function ProjectCard({ project }: { project: Project }) {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+  const arrowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.set(arrowRef.current, { opacity: 0, scale: 0.8 });
+    gsap.set(descRef.current, { height: 0, opacity: 0, marginTop: 0, overflow: "hidden" });
+  }, []);
+
+  function handleMouseEnter() {
+    gsap.killTweensOf([titleRef.current, descRef.current, arrowRef.current]);
+    gsap.to(titleRef.current, { y: -14, duration: 0.35, ease: "power2.out" });
+    gsap.to(descRef.current, { height: "auto", opacity: 1, marginTop: 4, duration: 0.35, ease: "power2.out" });
+    gsap.to(arrowRef.current, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" });
+  }
+
+  function handleMouseLeave() {
+    gsap.killTweensOf([titleRef.current, descRef.current, arrowRef.current]);
+    gsap.to(titleRef.current, { y: 0, duration: 0.28, ease: "power2.inOut" });
+    gsap.to(descRef.current, { height: 0, opacity: 0, marginTop: 0, duration: 0.25, ease: "power2.in" });
+    gsap.to(arrowRef.current, { opacity: 0, scale: 0.8, duration: 0.2, ease: "power2.in" });
+  }
+
+  return (
+    <Link
+      to={`/projecten/${project.id}`}
+      className="group relative block h-[420px] overflow-hidden rounded-2xl bg-[#0f0f0a]"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <img
+        src={project.image}
+        alt={project.title}
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        style={{ filter: "brightness(0.55) saturate(0.8)" }}
+        loading="lazy"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/35 to-transparent" />
+
+      {/* Badge — top left */}
+      <span className="absolute top-5 left-5 z-10 inline-block rounded-full bg-white/85 px-3 py-1 text-xs font-semibold text-dark backdrop-blur-sm">
+        {project.category}
+      </span>
+
+      {/* Arrow — top right */}
+      <ArrowCircle
+        ref={arrowRef}
+        iconSize={16}
+        className="pointer-events-none absolute top-5 right-5 z-10 h-11 w-11 bg-brand text-white"
+      />
+
+      {/* Bottom content */}
+      <div className="absolute bottom-0 left-0 right-0 p-7">
+        <h3 ref={titleRef} className="font-display text-3xl font-bold leading-tight text-white">
+          {project.title}
+        </h3>
+        <p
+          ref={descRef}
+          className="line-clamp-2 text-base leading-snug text-white/75"
+        >
+          {project.description}
+        </p>
+      </div>
+    </Link>
+  );
+}
+
 export default function Projecten() {
   const [activeCategory, setActiveCategory] = useState("Alle projecten");
 
@@ -100,31 +170,10 @@ export default function Projecten() {
               <p className="text-lg text-dark-lighter">Geen projecten gevonden in deze categorie.</p>
             </div>
           ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2">
               {filteredProjects.map((project, i) => (
                 <ScrollReveal key={project.id} delay={i * 80}>
-                  <Link
-                    to={`/projecten/${project.id}`}
-                    className="group relative block h-[380px] overflow-hidden rounded-2xl bg-[#0f0f0a]">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="absolute inset-0 h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
-                      style={{ filter: "brightness(0.6) saturate(0.8)" }}
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent" />
-                    <div className="absolute inset-0 flex flex-col justify-end p-7">
-                      <span className="mb-2 font-mono text-xs font-semibold uppercase tracking-widest text-brand">
-                        {project.category}
-                      </span>
-                      <h3 className="font-display text-2xl font-bold leading-tight text-white">{project.title}</h3>
-                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/60">{project.description}</p>
-                      <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand">
-                        Bekijk project <ArrowRight size={14} />
-                      </span>
-                    </div>
-                  </Link>
+                  <ProjectCard project={project} />
                 </ScrollReveal>
               ))}
             </div>
