@@ -1,4 +1,3 @@
-import Badge from "../components/Badge";
 import ClosingCtaSection from "../components/ClosingCtaSection";
 import PageHero from "../components/PageHero";
 import ScrollReveal from "../components/ScrollReveal";
@@ -74,17 +73,6 @@ export default function Werkwijze() {
       {/* Steps */}
       <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="mb-14 max-w-xl">
-              <h2 className="font-display text-3xl font-bold tracking-tight text-dark sm:text-4xl">
-                Zo pakken wij het aan
-              </h2>
-              <p className="mt-4 leading-relaxed text-dark-lighter">
-                Een bouwproject slaagt of faalt bij de aanpak. Hieronder zie je precies hoe wij te werk gaan.
-              </p>
-            </div>
-          </ScrollReveal>
-
           <div className="divide-y divide-dark/[0.06]">
             {stappen.map((stap, i) => (
               <ScrollReveal key={stap.step} delay={i * 60}>
@@ -113,15 +101,12 @@ export default function Werkwijze() {
       </section>
 
       {/* Voordelen */}
-      <section className="bg-surface py-16 sm:py-24">
+      <section className="bg-gray-50 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <ScrollReveal>
             <div className="mb-14 max-w-xl">
-              <Badge variant="light" className="mb-5">
-                Onze aanpak
-              </Badge>
-              <h2 className="font-display text-3xl font-bold tracking-tight text-dark sm:text-4xl">
-                Wat maakt onze aanpak anders?
+              <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
+                Wat maakt <span className="text-brand">onze aanpak</span> anders?
               </h2>
               <p className="mt-4 leading-relaxed text-dark-lighter">
                 Veel bouwbedrijven werken met meerdere projectleiders en lange communicatielijnen. Bij Oosterik Bouw is
@@ -154,7 +139,7 @@ export default function Werkwijze() {
         </div>
       </section>
 
-      <ClosingCtaSection />
+      <ClosingCtaSection variant="light" />
     </>
   );
 }

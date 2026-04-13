@@ -21,8 +21,19 @@ const dienstenLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-dark">
-      <div className="mx-auto max-w-7xl px-6 py-16">
+    <footer className="relative overflow-hidden bg-dark">
+      {/* Orange radial glow — top right */}
+      <div
+        className="pointer-events-none absolute right-0 top-0"
+        style={{
+          width: "60%",
+          height: "100%",
+          background:
+            "radial-gradient(circle at 100% 0%, rgba(229,120,44,0.20) 0%, rgba(229,120,44,0.07) 45%, transparent 70%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           {/* Logo + description */}
           <div>
@@ -68,11 +79,11 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <Phone size={16} className="mt-0.5 shrink-0 text-brand" />
-                <span className="text-gray-400">[Telefoonnummer]</span>
+                <a href="tel:+31630092478" className="text-gray-400 transition-colors hover:text-brand-light">06 30 09 24 78</a>
               </li>
               <li className="flex items-start gap-3">
                 <Mail size={16} className="mt-0.5 shrink-0 text-brand" />
-                <span className="text-gray-400">[E-mailadres]</span>
+                <a href="mailto:info@oosterikbouw.nl" className="text-gray-400 transition-colors hover:text-brand-light">info@oosterikbouw.nl</a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="mt-0.5 shrink-0 text-brand" />
@@ -84,7 +95,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/5">
+      <div className="relative border-t border-white/5">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 sm:flex-row">
           <p className="text-xs text-gray-500">
             &copy; {new Date().getFullYear()} Oosterik Bouw. Alle rechten voorbehouden.

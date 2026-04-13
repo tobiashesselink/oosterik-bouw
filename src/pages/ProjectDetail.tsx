@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import CTAButton from "../components/CTAButton";
 import ClosingCtaSection from "../components/ClosingCtaSection";
 import Header from "../components/Header";
+import NotFound from "./NotFound";
 import ScrollReveal from "../components/ScrollReveal";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -344,17 +345,7 @@ export default function ProjectDetail() {
   }, [project]);
 
   if (!project) {
-    return (
-      <section className="flex min-h-[60vh] items-center justify-center py-32 text-center">
-        <div>
-          <h1 className="font-display text-3xl font-bold text-dark">Project niet gevonden</h1>
-          <p className="mt-4 text-dark-lighter">Dit project bestaat niet of is nog niet beschikbaar.</p>
-          <div className="mt-8">
-            <CTAButton to="/projecten">Terug naar projecten</CTAButton>
-          </div>
-        </div>
-      </section>
-    );
+    return <NotFound />;
   }
 
   return (
@@ -452,7 +443,7 @@ export default function ProjectDetail() {
                 <h3 className="mb-6 font-display text-lg font-semibold text-dark">Projectinformatie</h3>
                 <dl className="space-y-5">
                   <div className="flex items-start gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dark/[0.07] text-brand">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-brand">
                       <Tag size={15} />
                     </div>
                     <div>
@@ -461,7 +452,7 @@ export default function ProjectDetail() {
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dark/[0.07] text-brand">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-brand">
                       <Briefcase size={15} />
                     </div>
                     <div>
@@ -470,7 +461,7 @@ export default function ProjectDetail() {
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dark/[0.07] text-brand">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-brand">
                       <MapPin size={15} />
                     </div>
                     <div>
@@ -479,7 +470,7 @@ export default function ProjectDetail() {
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-dark/[0.07] text-brand">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-brand">
                       <Calendar size={15} />
                     </div>
                     <div>

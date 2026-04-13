@@ -1,6 +1,4 @@
 import { Award, Heart, Lightbulb, RefreshCw, Shield } from "lucide-react";
-import Badge from "../components/Badge";
-import ClosingCtaSection from "../components/ClosingCtaSection";
 import PageHero from "../components/PageHero";
 import ScrollReveal from "../components/ScrollReveal";
 
@@ -43,11 +41,8 @@ export default function OverOns() {
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <ScrollReveal>
               <div>
-                <Badge variant="light" className="mb-6">
-                  Over ons
-                </Badge>
                 <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
-                  Persoonlijk betrokken bij jouw project
+                  Persoonlijk betrokken bij <span className="text-brand">jouw project</span>
                 </h2>
                 <p className="mt-6 text-lg leading-relaxed text-dark-lighter">
                   Oosterik Bouw is een jong, allround bouwbedrijf dat gespecialiseerd is in kleine tot middelgrote
@@ -79,11 +74,8 @@ export default function OverOns() {
             <div className="rounded-3xl bg-[#f3f3f3] px-6 py-12 sm:p-16">
               <ScrollReveal>
                 <div className="mb-10 text-center">
-                  <Badge variant="light" className="mb-4">
-                    Kernwaarden
-                  </Badge>
                   <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
-                    Waar Oosterik Bouw voor staat
+                    Waar <span className="text-brand">Oosterik Bouw</span> voor staat
                   </h2>
                 </div>
               </ScrollReveal>
@@ -112,11 +104,8 @@ export default function OverOns() {
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <ScrollReveal>
               <div>
-                <Badge variant="light" className="mb-6">
-                  Doelgroep
-                </Badge>
                 <h2 className="font-display text-4xl font-bold tracking-tight text-dark sm:text-5xl">
-                  Voor wie werkt Oosterik Bouw?
+                  <span className="text-brand">Voor wie</span> werkt Oosterik Bouw?
                 </h2>
                 <p className="mt-6 text-lg leading-relaxed text-dark-lighter">
                   Oosterik Bouw werkt voor particulieren die hun woning willen uitbreiden, verbouwen of verduurzamen.
@@ -128,7 +117,7 @@ export default function OverOns() {
             </ScrollReveal>
 
             <ScrollReveal delay={200}>
-              <div className="rounded-[2rem] bg-[#2c2c26] p-8">
+              <div className="rounded-[2rem] bg-gray-50 p-8">
                 <div className="grid gap-4 sm:grid-cols-2">
                   {[
                     { value: "100%", label: "Persoonlijke aanpak" },
@@ -136,9 +125,9 @@ export default function OverOns() {
                     { value: "10+", label: "Jaar ervaring" },
                     { value: "A-Z", label: "Volledige ontzorging" },
                   ].map((stat) => (
-                    <div key={stat.label} className="rounded-2xl bg-white/5 p-6 text-center">
+                    <div key={stat.label} className="rounded-2xl bg-white p-6 text-center">
                       <p className="font-display text-4xl font-bold text-brand">{stat.value}</p>
-                      <p className="mt-1 text-sm text-white/60">{stat.label}</p>
+                      <p className="mt-1 text-sm text-dark-lighter">{stat.label}</p>
                     </div>
                   ))}
                 </div>
@@ -152,18 +141,17 @@ export default function OverOns() {
       <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-4xl px-6 lg:px-8">
           <ScrollReveal>
-            <div className="rounded-[2rem] bg-[#2c2c26] p-10 sm:p-16">
-              <blockquote className="text-xl leading-relaxed text-white/70 sm:text-2xl">
-                "Als u besluit met Oosterik Bouw uw plannen tot uitvoering te brengen, staan wij paraat met onze
+            <div className="rounded-[2rem] bg-gray-50 p-10 sm:p-16">
+              <span className="mb-4 block font-display text-6xl font-black leading-none text-brand/20">"</span>
+              <blockquote className="font-display text-xl italic leading-relaxed text-dark sm:text-2xl">
+                Als je besluit met Oosterik Bouw je plannen tot uitvoering te brengen, staan wij paraat met onze
                 jarenlange ervaring. De wens van de klant staat centraal. Goede communicatie rechtstreeks met de
-                opdrachtgever vinden wij daarbij erg belangrijk."
+                opdrachtgever vinden wij daarbij erg belangrijk.
               </blockquote>
             </div>
           </ScrollReveal>
         </div>
       </section>
-
-      <ClosingCtaSection />
     </>
   );
 }

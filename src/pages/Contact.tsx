@@ -36,7 +36,7 @@ export default function Contact() {
             {/* Form — left col */}
             <div className="lg:col-span-3">
               <ScrollReveal>
-                <div className="rounded-[2rem] border border-dark/[0.06] bg-white p-8 shadow-sm sm:p-10">
+                <div className="rounded-[2rem] bg-gray-50 p-8 sm:p-10">
                   {submitted ? (
                     <div className="flex flex-col items-center py-16 text-center">
                       <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
@@ -61,7 +61,7 @@ export default function Contact() {
                               id="naam"
                               name="naam"
                               required
-                              className="w-full rounded-xl border border-dark/[0.08] bg-[#f5f5f5] px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                              className="w-full rounded-xl border border-dark/[0.08] bg-white px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
                               placeholder="Je volledige naam"
                             />
                           </div>
@@ -74,7 +74,7 @@ export default function Contact() {
                               id="email"
                               name="email"
                               required
-                              className="w-full rounded-xl border border-dark/[0.08] bg-[#f5f5f5] px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                              className="w-full rounded-xl border border-dark/[0.08] bg-white px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
                               placeholder="je@email.nl"
                             />
                           </div>
@@ -89,7 +89,7 @@ export default function Contact() {
                               type="tel"
                               id="telefoon"
                               name="telefoon"
-                              className="w-full rounded-xl border border-dark/[0.08] bg-[#f5f5f5] px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                              className="w-full rounded-xl border border-dark/[0.08] bg-white px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
                               placeholder="06-12345678"
                             />
                           </div>
@@ -100,7 +100,7 @@ export default function Contact() {
                             <select
                               id="type"
                               name="type"
-                              className="w-full rounded-xl border border-dark/[0.08] bg-[#f5f5f5] px-4 py-3.5 text-sm text-dark transition-all duration-200 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20">
+                              className="w-full rounded-xl border border-dark/[0.08] bg-white px-4 py-3.5 text-sm text-dark transition-all duration-200 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20">
                               <option value="">Selecteer een type</option>
                               {projectTypes.map((type) => (
                                 <option key={type} value={type}>
@@ -119,7 +119,7 @@ export default function Contact() {
                             id="bericht"
                             name="bericht"
                             rows={5}
-                            className="w-full resize-none rounded-xl border border-dark/[0.08] bg-[#f5f5f5] px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+                            className="w-full resize-none rounded-xl border border-dark/[0.08] bg-white px-4 py-3.5 text-sm text-dark transition-all duration-200 placeholder:text-dark/30 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
                             placeholder="Vertel kort over je project of vraag..."
                           />
                         </div>
@@ -141,22 +141,28 @@ export default function Contact() {
             <div className="lg:col-span-2">
               <div className="sticky top-24 space-y-5">
                 <ScrollReveal delay={200}>
-                  <div className="rounded-[2rem] border border-dark/[0.06] bg-white p-8 shadow-sm">
+                  <div className="rounded-[2rem] bg-gray-50 p-8">
                     <h3 className="font-display text-xl font-semibold text-dark mb-6">Contactgegevens</h3>
                     <ul className="space-y-5">
                       {[
-                        { icon: Phone, label: "Telefoon", value: "[Telefoonnummer]" },
-                        { icon: Mail, label: "E-mail", value: "[E-mailadres]" },
-                        { icon: MapPin, label: "Werkgebied", value: "[Werkgebied]" },
-                        { icon: Clock, label: "Bereikbaarheid", value: "Werkdagen [tijden]" },
+                        { icon: Phone, label: "Telefoon", value: "06 30 09 24 78", href: "tel:+31630092478" },
+                        { icon: Mail, label: "E-mail", value: "info@oosterikbouw.nl", href: "mailto:info@oosterikbouw.nl" },
+                        { icon: MapPin, label: "Werkgebied", value: "[Werkgebied]", href: undefined },
+                        { icon: Clock, label: "Bereikbaarheid", value: "Werkdagen [tijden]", href: undefined },
                       ].map((item) => (
                         <li key={item.label} className="flex items-start gap-4">
-                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-brand">
                             <item.icon size={18} />
                           </div>
                           <div>
                             <p className="text-xs text-dark-lighter">{item.label}</p>
-                            <p className="mt-0.5 text-sm font-semibold text-dark">{item.value}</p>
+                            {item.href ? (
+                              <a href={item.href} className="mt-0.5 block text-sm font-semibold text-dark hover:text-brand transition-colors">
+                                {item.value}
+                              </a>
+                            ) : (
+                              <p className="mt-0.5 text-sm font-semibold text-dark">{item.value}</p>
+                            )}
                           </div>
                         </li>
                       ))}
@@ -165,9 +171,9 @@ export default function Contact() {
                 </ScrollReveal>
 
                 <ScrollReveal delay={300}>
-                  <div className="rounded-[2rem] bg-[#2c2c26] p-8">
-                    <h3 className="font-display text-lg font-semibold text-white mb-4">Hoe gaat het na je aanvraag?</h3>
-                    <p className="text-sm leading-relaxed text-white/50">
+                  <div className="rounded-[2rem] bg-gray-50 p-8">
+                    <h3 className="font-display text-lg font-semibold text-dark mb-4">Hoe gaat het na je aanvraag?</h3>
+                    <p className="text-sm leading-relaxed text-dark-lighter">
                       Na ontvangst van je aanvraag nemen we zo snel mogelijk contact met je op, meestal binnen één
                       werkdag. We plannen dan een afspraak op locatie om je wensen te bespreken en de situatie te
                       bekijken. Van daaruit werken we een passend voorstel uit.
