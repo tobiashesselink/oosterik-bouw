@@ -60,7 +60,7 @@ export default function OverOns() {
             <ScrollReveal delay={200}>
               <div className="overflow-hidden rounded-[2rem]">
                 <img
-                  src="/actie-foto-1.webp"
+                  src="/actie-foto-3.webp"
                   alt="Oosterik Bouw aan het werk"
                   className="h-[480px] w-full object-cover"
                   loading="lazy"

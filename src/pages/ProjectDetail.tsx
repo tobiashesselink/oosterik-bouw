@@ -3,7 +3,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Briefcase, Calendar, MapPin, Tag } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import CTAButton from "../components/CTAButton";
 import ClosingCtaSection from "../components/ClosingCtaSection";
 import Header from "../components/Header";
 import NotFound from "./NotFound";

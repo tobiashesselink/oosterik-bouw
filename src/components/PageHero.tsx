@@ -12,12 +12,10 @@ export default function PageHero({ title, subtitle, minimal = false }: PageHeroP
       <div className="relative overflow-hidden rounded-3xl bg-dark sm:rounded-[2rem]">
         {/* Orange radial glow — top right */}
         <div
-          className="pointer-events-none absolute right-0 top-0"
+          className="pointer-events-none absolute inset-0"
           style={{
-            width: "60%",
-            height: "100%",
             background:
-              "radial-gradient(circle at 100% 0%, rgba(229,120,44,0.20) 0%, rgba(229,120,44,0.07) 45%, transparent 70%)",
+              "radial-gradient(circle at 100% 0%, rgba(229,120,44,0.20) 0%, rgba(229,120,44,0.07) 35%, transparent 65%)",
           }}
         />
         {/* Subtle bottom fade */}

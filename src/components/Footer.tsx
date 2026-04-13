@@ -24,12 +24,10 @@ export default function Footer() {
     <footer className="relative overflow-hidden bg-dark">
       {/* Orange radial glow — top right */}
       <div
-        className="pointer-events-none absolute right-0 top-0"
+        className="pointer-events-none absolute inset-0"
         style={{
-          width: "60%",
-          height: "100%",
           background:
-            "radial-gradient(circle at 100% 0%, rgba(229,120,44,0.20) 0%, rgba(229,120,44,0.07) 45%, transparent 70%)",
+            "radial-gradient(circle at 100% 0%, rgba(229,120,44,0.20) 0%, rgba(229,120,44,0.07) 35%, transparent 65%)",
         }}
       />
 
